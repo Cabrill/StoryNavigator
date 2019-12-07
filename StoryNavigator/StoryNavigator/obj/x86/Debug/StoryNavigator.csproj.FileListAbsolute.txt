@@ -22,7 +22,6 @@ D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\c
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\content\gumproject\components\defaultforms\usercontrol.gucx
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\content\gumproject\components\nodes\nodedisplay.gucx
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\content\gumproject\components\nodes\nodeinfo.gucx
-D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\content\gumproject\components\nodes\nodetextentry.gucx
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\content\gumproject\fontcache\font10arial.fnt
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\content\gumproject\fontcache\font10arial_0.png
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\content\gumproject\fontcache\font12arial.fnt

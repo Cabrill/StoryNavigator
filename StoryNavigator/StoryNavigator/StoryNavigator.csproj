@@ -292,10 +292,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>nodeinfo</Name>
     </None>
-    <None Include="content\gumproject\components\nodes\nodetextentry.gucx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>nodetextentry</Name>
-    </None>
     <None Include="content\gumproject\fontcache\font10arial.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>font10arial</Name>

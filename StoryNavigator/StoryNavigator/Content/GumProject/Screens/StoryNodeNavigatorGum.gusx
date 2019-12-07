@@ -3,24 +3,7 @@
   <Name>StoryNodeNavigatorGum</Name>
   <State>
     <Name>Default</Name>
-    <Variable>
-      <Type>float</Type>
-      <Name>NodeDisplayInstance.X</Name>
-      <Value xsi:type="xsd:float">34</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>float</Type>
-      <Name>NodeDisplayInstance.Y</Name>
-      <Value xsi:type="xsd:float">120</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
   </State>
-  <Instance>
-    <Name>NodeDisplayInstance</Name>
-    <BaseType>Nodes/NodeDisplay</BaseType>
-    <DefinedByBase>false</DefinedByBase>
-  </Instance>
   <Instance>
     <Name>MenuBarInstance</Name>
     <BaseType>MenuBars/MenuBar</BaseType>

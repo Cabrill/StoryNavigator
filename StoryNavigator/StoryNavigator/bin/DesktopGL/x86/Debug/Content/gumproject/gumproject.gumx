@@ -100,10 +100,6 @@
     <Name>Nodes/NodeInfo</Name>
     <ElementType>Component</ElementType>
   </ComponentReference>
-  <ComponentReference>
-    <Name>Nodes/NodeTextEntry</Name>
-    <ElementType>Component</ElementType>
-  </ComponentReference>
   <StandardElementReference>
     <Name>Circle</Name>
     <ElementType>Standard</ElementType>
