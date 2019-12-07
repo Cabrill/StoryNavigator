@@ -85,6 +85,14 @@
     <ElementType>Component</ElementType>
   </ComponentReference>
   <ComponentReference>
+    <Name>MenuBars/MenuBar</Name>
+    <ElementType>Component</ElementType>
+  </ComponentReference>
+  <ComponentReference>
+    <Name>MenuBars/MenuItem</Name>
+    <ElementType>Component</ElementType>
+  </ComponentReference>
+  <ComponentReference>
     <Name>Nodes/NodeDisplay</Name>
     <ElementType>Component</ElementType>
   </ComponentReference>

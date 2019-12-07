@@ -77,3 +77,5 @@ D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\obj\x86\Debug\StoryNaviga
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\obj\x86\Debug\StoryNavigator.csproj.CopyComplete
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\obj\x86\Debug\StoryNavigator.exe
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\obj\x86\Debug\StoryNavigator.pdb
+D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\content\gumproject\components\menubars\menubar.gucx
+D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\content\gumproject\components\menubars\menuitem.gucx
