@@ -348,3 +348,13 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+
+*Generated.cs
+*.Generated.*.cs
+StoryNavigator/obj/
+.vs/
+StoryNavigator/bin/
+StoryNavigator/Content/TiledObjects.Generated.xml
+*.aeproperties
+StoryNavigator/StoryNavigator.csproj.user
