@@ -84,6 +84,26 @@
     <Name>DefaultForms/UserControl</Name>
     <ElementType>Component</ElementType>
   </ComponentReference>
+  <ComponentReference>
+    <Name>MenuBars/MenuBar</Name>
+    <ElementType>Component</ElementType>
+  </ComponentReference>
+  <ComponentReference>
+    <Name>MenuBars/MenuItem</Name>
+    <ElementType>Component</ElementType>
+  </ComponentReference>
+  <ComponentReference>
+    <Name>Nodes/NodeDisplay</Name>
+    <ElementType>Component</ElementType>
+  </ComponentReference>
+  <ComponentReference>
+    <Name>Nodes/NodeInfo</Name>
+    <ElementType>Component</ElementType>
+  </ComponentReference>
+  <ComponentReference>
+    <Name>Nodes/NodeTextEntry</Name>
+    <ElementType>Component</ElementType>
+  </ComponentReference>
   <StandardElementReference>
     <Name>Circle</Name>
     <ElementType>Standard</ElementType>

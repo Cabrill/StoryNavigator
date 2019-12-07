@@ -92,7 +92,22 @@
     <Compile Include="GumRuntimes\DefaultForms\TreeViewToggleButtonRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\DefaultForms\UserControlRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\GumIdb.Generated.cs" />
+    <Compile Include="GumRuntimes\MenuBarsRuntime.cs" />
+    <Compile Include="GumRuntimes\MenuBars\MenuBarBackgroundRuntime.cs" />
+    <Compile Include="GumRuntimes\MenuBars\MenuBarBackgroundRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\MenuBars\MenuBarbuttonRowRuntime.cs" />
+    <Compile Include="GumRuntimes\MenuBars\MenuBarbuttonRowRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\MenuBars\MenuBarRuntime.cs" />
+    <Compile Include="GumRuntimes\MenuBars\MenuBarRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\MenuBars\MenuItemRuntime.cs" />
+    <Compile Include="GumRuntimes\MenuBars\MenuItemRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\NineSliceRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\Nodes\NodeDisplayRuntime.cs" />
+    <Compile Include="GumRuntimes\Nodes\NodeDisplayRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\Nodes\NodeInfoRuntime.cs" />
+    <Compile Include="GumRuntimes\Nodes\NodeInfoRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\Nodes\NodeTextEntryRuntime.cs" />
+    <Compile Include="GumRuntimes\Nodes\NodeTextEntryRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\PolygonRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\RectangleRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\SpriteRuntime.Generated.cs" />
@@ -241,6 +256,42 @@
     <None Include="content\gumproject\components\defaultforms\usercontrol.gucx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>usercontrol</Name>
+    </None>
+    <None Include="content\gumproject\components\menubars\menubar.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>menubar</Name>
+    </None>
+    <None Include="content\gumproject\components\menubars\menuitem.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>menuitem</Name>
+    </None>
+    <None Include="content\gumproject\components\nodes\nodedisplay.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>nodedisplay</Name>
+    </None>
+    <None Include="content\gumproject\components\nodes\nodeinfo.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>nodeinfo</Name>
+    </None>
+    <None Include="content\gumproject\components\nodes\nodetextentry.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>nodetextentry</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font10arial.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>font10arial</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font10arial_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>Font10Arial_0</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font12arial.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>font12arial</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font12arial_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>Font12Arial_0</Name>
     </None>
     <None Include="content\gumproject\fontcache\font18arial.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
