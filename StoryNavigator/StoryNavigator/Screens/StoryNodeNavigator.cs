@@ -19,13 +19,16 @@ namespace StoryNavigator.Screens
 {
     public partial class StoryNodeNavigator
     {
+        #region Properties
         private bool nodeIsGrabbed = false;
         private StoryData currentStoryData;
         private bool isStoryLoaded => currentStoryData != null;
 
         private List<NodeDisplayRuntime> NodeDisplays = new List<NodeDisplayRuntime>();
         NodeDisplayRuntime currentDraggedNode;
+        #endregion
 
+        #region Initialize
         void CustomInitialize()
         {
             InitializeCamera();
@@ -34,7 +37,14 @@ namespace StoryNavigator.Screens
 
 
         }
+        private void InitializeCamera()
+        {
+            //TODO
+        }
 
+        #endregion
+
+        #region Story Create/Load/Save
         private void AttemptLoadLastSavedStoryOrCreateNew()
         {
             //TODO
@@ -53,10 +63,7 @@ namespace StoryNavigator.Screens
             currentStoryData.AddNewPassage();
         }
 
-        private void InitializeCamera()
-        {
-            //TODO
-        }
+
 
         private void CreateNodesForStoryPassages()
         {
@@ -70,6 +77,9 @@ namespace StoryNavigator.Screens
             }
         }
 
+        #endregion
+
+        #region Activity
         void CustomActivity(bool firstTimeCalled)
         {
             var cursor = GuiManager.Cursor;
@@ -91,11 +101,16 @@ namespace StoryNavigator.Screens
             }
         }
 
+        #endregion
+
+        #region Destroy/Unload
         void CustomDestroy()
         {
-
+            
 
         }
+
+        #endregion
 
         static void CustomLoadStaticContent(string contentManagerName)
         {

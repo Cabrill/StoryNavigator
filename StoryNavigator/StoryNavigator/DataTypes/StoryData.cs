@@ -40,6 +40,39 @@ namespace StoryNavigator.DataTypes
             return newPassage;
         }
 
+        public bool SaveData(string fileName = "StoryData.json")
+        {
+            try
+            {
+                FlatRedBall.IO.FileManager.XmlSerialize(_rawData, fileName);
+
+                FlatRedBall.Debugging.Debugger.CommandLineWrite("Successful Save: " + fileName);
+                return true;
+            }
+            catch (Exception e)
+            {
+                FlatRedBall.Debugging.Debugger.CommandLineWrite($"Save failed: {fileName}\nException:{e.Message}");
+                return false;
+            }
+        }
+
+        public bool LoadData(string fileName = "StoryData.json")
+        {
+            try
+            {
+                var loadData = FlatRedBall.IO.FileManager.XmlDeserialize<DialogTreeRaw>(fileName);
+                _rawData = loadData;
+
+                FlatRedBall.Debugging.Debugger.CommandLineWrite("Successful Load: " + fileName);
+                return true;
+            }
+            catch (Exception e)
+            {
+                FlatRedBall.Debugging.Debugger.CommandLineWrite($"Load failed: {fileName}\nException:{e.Message}");
+                return false;
+            }
+        }
+
         private int GetNextPassageId()
         {
             if (_rawData.RootObject.passages?.Count() > 0)
