@@ -104,6 +104,7 @@
           <AttachToContainer>true</AttachToContainer>
           <GenerateTimedEmit>true</GenerateTimedEmit>
           <IndependentOfCamera>true</IndependentOfCamera>
+          <LayerOn>GUILayer</LayerOn>
         </NamedObjectSave>
       </NamedObjects>
     </ScreenSave>

@@ -5,6 +5,11 @@
   <State>
     <Name>Default</Name>
     <Variable>
+      <Type>AlignmentState</Type>
+      <Name>AlignmentState</Name>
+      <SetsValue>false</SetsValue>
+    </Variable>
+    <Variable>
       <Type>float</Type>
       <Name>Height</Name>
       <Value xsi:type="xsd:float">50</Value>
@@ -19,7 +24,7 @@
     <Variable>
       <Type>float</Type>
       <Name>MenuItemButton.Width</Name>
-      <Value xsi:type="xsd:float">100</Value>
+      <Value xsi:type="xsd:float">50</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -29,11 +34,76 @@
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
+      <Type>float</Type>
+      <Name>MenuItemButton.Y</Name>
+      <Value xsi:type="xsd:float">1</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>VerticalAlignment</Type>
+      <Name>MenuItemButton.Y Origin</Name>
+      <Value xsi:type="xsd:int">0</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>PositionUnitType</Type>
+      <Name>MenuItemButton.Y Units</Name>
+      <Value xsi:type="xsd:int">1</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
       <Type>State</Type>
       <Name>State</Name>
       <SetsValue>true</SetsValue>
     </Variable>
+    <Variable>
+      <Type>float</Type>
+      <Name>Width</Name>
+      <Value xsi:type="xsd:float">0</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>DimensionUnitType</Type>
+      <Name>Width Units</Name>
+      <Value xsi:type="xsd:int">4</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
   </State>
+  <Category>
+    <Name>Alignment</Name>
+    <State>
+      <Name>Left</Name>
+      <Variable>
+        <Type>HorizontalAlignment</Type>
+        <Name>X Origin</Name>
+        <Value xsi:type="xsd:int">0</Value>
+        <Category>Position</Category>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>PositionUnitType</Type>
+        <Name>X Units</Name>
+        <Value xsi:type="xsd:int">0</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+    </State>
+    <State>
+      <Name>Right</Name>
+      <Variable>
+        <Type>HorizontalAlignment</Type>
+        <Name>X Origin</Name>
+        <Value xsi:type="xsd:int">2</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>PositionUnitType</Type>
+        <Name>X Units</Name>
+        <Value xsi:type="xsd:int">4</Value>
+        <Category>Position</Category>
+        <SetsValue>true</SetsValue>
+      </Variable>
+    </State>
+  </Category>
   <Instance>
     <Name>MenuItemButton</Name>
     <BaseType>DefaultForms/Button</BaseType>

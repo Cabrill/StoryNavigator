@@ -5,6 +5,18 @@
   <State>
     <Name>Default</Name>
     <Variable>
+      <Type>int</Type>
+      <Name>ColoredRectangleInstance.Blue</Name>
+      <Value xsi:type="xsd:int">0</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>int</Type>
+      <Name>ColoredRectangleInstance.Green</Name>
+      <Value xsi:type="xsd:int">0</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
       <Type>float</Type>
       <Name>ColoredRectangleInstance.Height</Name>
       <Value xsi:type="xsd:float">100</Value>
@@ -14,6 +26,11 @@
       <Type>DimensionUnitType</Type>
       <Name>ColoredRectangleInstance.Height Units</Name>
       <Value xsi:type="xsd:int">1</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>string</Type>
+      <Name>ColoredRectangleInstance.Parent</Name>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -29,26 +46,37 @@
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
+      <Type>ChildrenLayout</Type>
+      <Name>MenuItemContainer.Children Layout</Name>
+      <Value xsi:type="xsd:int">2</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
       <Type>float</Type>
-      <Name>ContainerInstance.Height</Name>
+      <Name>MenuItemContainer.Height</Name>
       <Value xsi:type="xsd:float">0</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>DimensionUnitType</Type>
-      <Name>ContainerInstance.Height Units</Name>
+      <Name>MenuItemContainer.Height Units</Name>
       <Value xsi:type="xsd:int">4</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
+      <Type>string</Type>
+      <Name>MenuItemContainer.Parent</Name>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
       <Type>float</Type>
-      <Name>ContainerInstance.Width</Name>
+      <Name>MenuItemContainer.Width</Name>
       <Value xsi:type="xsd:float">100</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>DimensionUnitType</Type>
-      <Name>ContainerInstance.Width Units</Name>
+      <Name>MenuItemContainer.Width Units</Name>
       <Value xsi:type="xsd:int">1</Value>
       <SetsValue>true</SetsValue>
     </Variable>
@@ -83,18 +111,13 @@
     </Variable>
   </State>
   <Instance>
-    <Name>ContainerInstance</Name>
-    <BaseType>Container</BaseType>
-    <DefinedByBase>false</DefinedByBase>
-  </Instance>
-  <Instance>
     <Name>ColoredRectangleInstance</Name>
     <BaseType>ColoredRectangle</BaseType>
     <DefinedByBase>false</DefinedByBase>
   </Instance>
   <Instance>
-    <Name>MenuItemInstance</Name>
-    <BaseType>MenuBars/MenuItem</BaseType>
+    <Name>MenuItemContainer</Name>
+    <BaseType>Container</BaseType>
     <DefinedByBase>false</DefinedByBase>
   </Instance>
   <Behaviors />

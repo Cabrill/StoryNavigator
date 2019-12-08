@@ -32,16 +32,36 @@ namespace StoryNavigator.Screens
         void CustomInitialize()
         {
             InitializeCamera();
+            InitializeTopMenu();
             AttemptLoadLastSavedStoryOrCreateNew();
+
+            //Last step
             CreateNodesForStoryPassages();
-
-
         }
         private void InitializeCamera()
         {
-            //TODO
+            //TODO: Load zoom level, and camera X/Y value from last save
+            //Set min/max camera levels and tie camera to 
+            //cursor movement on edge of screen
+            //and setup middle mouse wheel roll to zoom in/out
         }
 
+        private void InitializeTopMenu()
+        {
+            TopMenuBar.AddMenuItem("File", HandleFileMenuItemClicked);
+            //TODO: More menu buttons
+            //Current project settings, view, search, file and replace, node options, etc.
+
+            TopMenuBar.AddMenuItem("Exit", (IWindow notUsed) => { FlatRedBallServices.Game.Exit(); }, shouldRightAlign:true);
+        }
+
+        #endregion
+
+        #region Menu Interaction
+        private void HandleFileMenuItemClicked(IWindow window)
+        {
+            //Todo:  Open a vertical menu of New/Load/Save
+        }
         #endregion
 
         #region Story Create/Load/Save
@@ -58,6 +78,8 @@ namespace StoryNavigator.Screens
 
         private void CreateNewStory()
         {
+            DestroyAllNodes();
+
             currentStoryData = new StoryData();
             //Create initial passage
             currentStoryData.AddNewPassage();
@@ -83,10 +105,18 @@ namespace StoryNavigator.Screens
         void CustomActivity(bool firstTimeCalled)
         {
             var cursor = GuiManager.Cursor;
-            if (nodeIsGrabbed)
+            
+            if (nodeIsGrabbed && currentDraggedNode is IWindow nodeWindow)
             {
-                currentDraggedNode.X += cursor.ScreenXChange;
-                currentDraggedNode.Y += cursor.ScreenYChange;
+                //This is is hit
+                nodeWindow.X += cursor.ScreenXChange;
+                nodeWindow.Y += cursor.ScreenYChange;
+                
+                if (cursor.ScreenXChange != 0 || cursor.ScreenYChange != 0)
+                {
+                    //But these are never greater than zero, why?
+                    int m = 3;
+                }
             }
 
             if (cursor.PrimaryPush && currentDraggedNode == null && cursor.WindowOver is NodeDisplayRuntime nodeDisplay)
@@ -104,10 +134,24 @@ namespace StoryNavigator.Screens
         #endregion
 
         #region Destroy/Unload
+
+        private void DestroyAllNodes()
+        {
+            var nodeCount = NodeDisplays?.Count();
+            if (nodeCount > 0)
+            {
+                for (var i = 0; i < nodeCount; i++)
+                {
+                    NodeDisplays[i].RemoveFromManagers();
+                    NodeDisplays[i].Destroy();
+                }
+            }
+            
+        }
         void CustomDestroy()
         {
-            
-
+            DestroyAllNodes();
+            TopMenuBar.ClearItems();
         }
 
         #endregion
