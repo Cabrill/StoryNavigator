@@ -329,6 +329,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>Font12Arial_0</Name>
     </None>
+    <None Include="content\gumproject\fontcache\font14arial.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>font14arial</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font14arial_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>Font14Arial_0</Name>
+    </None>
     <None Include="content\gumproject\fontcache\font18arial.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>font18arial</Name>

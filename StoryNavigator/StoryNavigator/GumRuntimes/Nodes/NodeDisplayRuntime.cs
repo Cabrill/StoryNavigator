@@ -34,6 +34,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
             {
                 var linkDisplay = new NodeLinkRuntime();
                 linkDisplay.PassageLinkNameText = passageLink.name;
+                linkDisplay.LinkText = passageLink.link;
                 linkDisplay.PassageLinkNumberText = passageLink.pid.ToString();
                 linkDisplay.AddToManagers();
                 NodeLinkContainer.Children.Add(linkDisplay);
