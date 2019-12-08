@@ -24,7 +24,7 @@ namespace StoryNavigator.Screens
         private bool isStoryLoaded => currentStoryData != null;
 
         private List<NodeDisplayRuntime> NodeDisplays = new List<NodeDisplayRuntime>();
-        NodeDisplayRuntime currentNode;
+        NodeDisplayRuntime currentDraggedNode;
 
         void CustomInitialize()
         {
@@ -75,21 +75,19 @@ namespace StoryNavigator.Screens
             var cursor = GuiManager.Cursor;
             if (nodeIsGrabbed)
             {
-                this.currentNode.X += cursor.ScreenXChange;
-                this.currentNode.Y += cursor.ScreenYChange;
-
-                
+                currentDraggedNode.X += cursor.ScreenXChange;
+                currentDraggedNode.Y += cursor.ScreenYChange;
             }
-            if (cursor.PrimaryPush && currentNode == null && cursor.WindowOver is NodeDisplayRuntime nodeDisplay)
+
+            if (cursor.PrimaryPush && currentDraggedNode == null && cursor.WindowOver is NodeDisplayRuntime nodeDisplay)
             {
                 nodeIsGrabbed = true;
-                currentNode = nodeDisplay;
+                currentDraggedNode = nodeDisplay;
             }
-
-            if (cursor.PrimaryClick)
+            else if (!cursor.PrimaryPush)
             {
                 nodeIsGrabbed = false;
-                nodeDisplay = null;
+                currentDraggedNode = null;
             }
         }
 
