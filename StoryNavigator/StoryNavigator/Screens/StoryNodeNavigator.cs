@@ -13,39 +13,83 @@ using FlatRedBall.Math.Geometry;
 using FlatRedBall.Localization;
 using StoryNavigator.GumRuntimes.Nodes;
 using FlatRedBall.Gui;
+using StoryNavigator.DataTypes;
 
 namespace StoryNavigator.Screens
 {
     public partial class StoryNodeNavigator
     {
-        private bool isGrabbed = false;
+        private bool nodeIsGrabbed = false;
+        private StoryData currentStoryData;
+        private bool isStoryLoaded => currentStoryData != null;
+
+        private List<NodeDisplayRuntime> NodeDisplays = new List<NodeDisplayRuntime>();
         NodeDisplayRuntime currentNode;
 
         void CustomInitialize()
         {
-            currentNode = new NodeDisplayRuntime();
-            currentNode.AddToManagers();
-            currentNode.MoveToFrbLayer(NodeLayer, NodeLayerGum);
-            currentNode.X = 200;
-            currentNode.Y = 300;
+            InitializeCamera();
+            AttemptLoadLastSavedStoryOrCreateNew();
+            CreateNodesForStoryPassages();
+
+
+        }
+
+        private void AttemptLoadLastSavedStoryOrCreateNew()
+        {
+            //TODO
+            //LoadStoryLocally();
+            if (!isStoryLoaded)
+            {
+                CreateNewStory();
+            }
+            CreateNodesForStoryPassages();
+        }
+
+        private void CreateNewStory()
+        {
+            currentStoryData = new StoryData();
+            //Create initial passage
+            currentStoryData.AddNewPassage();
+        }
+
+        private void InitializeCamera()
+        {
+            //TODO
+        }
+
+        private void CreateNodesForStoryPassages()
+        {
+            foreach (var passage in currentStoryData.Passages)
+            {
+                var newNode = new NodeDisplayRuntime();
+                newNode.SetPassage(passage);
+                NodeDisplays.Add(newNode);
+                newNode.AddToManagers();
+                newNode.MoveToFrbLayer(NodeLayer, NodeLayerGum);
+            }
         }
 
         void CustomActivity(bool firstTimeCalled)
         {
             var cursor = GuiManager.Cursor;
-            if (isGrabbed)
+            if (nodeIsGrabbed)
             {
                 this.currentNode.X += cursor.ScreenXChange;
                 this.currentNode.Y += cursor.ScreenYChange;
+
+                
             }
-            if (cursor.PrimaryPush && cursor.WindowOver == currentNode)
+            if (cursor.PrimaryPush && currentNode == null && cursor.WindowOver is NodeDisplayRuntime nodeDisplay)
             {
-                isGrabbed = true;
+                nodeIsGrabbed = true;
+                currentNode = nodeDisplay;
             }
 
             if (cursor.PrimaryClick)
             {
-                isGrabbed = false;
+                nodeIsGrabbed = false;
+                nodeDisplay = null;
             }
         }
 

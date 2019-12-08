@@ -49,12 +49,16 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DataTypes\DialogTree.cs" />
+    <Compile Include="DataTypes\StoryData.cs" />
     <Compile Include="DataTypes\TileMapInfo.Generated.cs" />
+    <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="FileAliases.Generated.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Game1.Generated.cs">
       <DependentUpon>Game1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalConstants\GlobalConstants.cs" />
     <Compile Include="GlobalContent.Generated.cs" />
     <Compile Include="GlueControl\GlueControlManager.Generated.cs" />
     <Compile Include="GumRuntimes\Behaviors\IButtonBehavior.Generated.cs" />
@@ -184,6 +188,9 @@
     <Reference Include="MonoGame.Framework, Version=3.5.1.1679, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libraries\DesktopGl\Debug\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NVorbis, Version=0.8.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -415,6 +422,7 @@
     <Content Include="libSDL2-2.0.0.dylib">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="packages.config" />
     <None Include="x64\SDL2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

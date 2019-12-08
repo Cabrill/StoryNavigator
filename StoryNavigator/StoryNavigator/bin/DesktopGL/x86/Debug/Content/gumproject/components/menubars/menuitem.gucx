@@ -11,6 +11,12 @@
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
+      <Type>string</Type>
+      <Name>MenuItemButton.Text</Name>
+      <ExposedAsName>ItemText</ExposedAsName>
+      <SetsValue>false</SetsValue>
+    </Variable>
+    <Variable>
       <Type>float</Type>
       <Name>MenuItemButton.Width</Name>
       <Value xsi:type="xsd:float">100</Value>

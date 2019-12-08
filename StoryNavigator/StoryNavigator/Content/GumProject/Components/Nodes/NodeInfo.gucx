@@ -92,6 +92,7 @@
       <Type>string</Type>
       <Name>NodeNumberText.Text</Name>
       <Value xsi:type="xsd:string">1</Value>
+      <ExposedAsName>PassagePidText</ExposedAsName>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -128,6 +129,7 @@
       <Type>string</Type>
       <Name>NodeSummaryText.Text</Name>
       <Value xsi:type="xsd:string">Node one summary text</Value>
+      <ExposedAsName>PassageNameText</ExposedAsName>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
