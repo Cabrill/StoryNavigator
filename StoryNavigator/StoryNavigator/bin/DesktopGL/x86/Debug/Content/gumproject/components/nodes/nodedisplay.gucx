@@ -95,44 +95,56 @@
     </Variable>
     <Variable>
       <Type>float</Type>
-      <Name>RectangleInstance.Height</Name>
-      <Value xsi:type="xsd:float">-14</Value>
+      <Name>NodeLinkContainer.Height</Name>
+      <Value xsi:type="xsd:float">-4</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>DimensionUnitType</Type>
-      <Name>RectangleInstance.Height Units</Name>
+      <Name>NodeLinkContainer.Height Units</Name>
       <Value xsi:type="xsd:int">2</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>float</Type>
-      <Name>RectangleInstance.Width</Name>
-      <Value xsi:type="xsd:float">-14</Value>
+      <Name>NodeLinkContainer.Width</Name>
+      <Value xsi:type="xsd:float">0</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>DimensionUnitType</Type>
-      <Name>RectangleInstance.Width Units</Name>
-      <Value xsi:type="xsd:int">2</Value>
+      <Name>NodeLinkContainer.Width Units</Name>
+      <Value xsi:type="xsd:int">4</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>float</Type>
-      <Name>RectangleInstance.X</Name>
-      <Value xsi:type="xsd:float">7</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>float</Type>
-      <Name>RectangleInstance.Y</Name>
-      <Value xsi:type="xsd:float">7</Value>
+      <Name>NodeLinkContainer.X</Name>
+      <Value xsi:type="xsd:float">-5</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>PositionUnitType</Type>
-      <Name>RectangleInstance.Y Units</Name>
-      <Value xsi:type="xsd:int">1</Value>
+      <Name>NodeLinkContainer.X Units</Name>
+      <Value xsi:type="xsd:int">4</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>float</Type>
+      <Name>NodeLinkContainer.Y</Name>
+      <Value xsi:type="xsd:float">4</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>ConnectionStateState</Type>
+      <Name>NodeLinkInstance.ConnectionStateState</Name>
+      <Value xsi:type="xsd:string">Add</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>string</Type>
+      <Name>NodeLinkInstance.Parent</Name>
+      <Value xsi:type="xsd:string">NodeLinkContainer</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -144,6 +156,12 @@
       <Type>string</Type>
       <Name>TextBoxInstance.Parent</Name>
       <Value xsi:type="xsd:string">ContainerInstance</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>string</Type>
+      <Name>TextBoxInstance.Text</Name>
+      <Value xsi:type="xsd:string">Node description</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -176,11 +194,6 @@
     <DefinedByBase>false</DefinedByBase>
   </Instance>
   <Instance>
-    <Name>RectangleInstance</Name>
-    <BaseType>Rectangle</BaseType>
-    <DefinedByBase>false</DefinedByBase>
-  </Instance>
-  <Instance>
     <Name>TextBoxInstance</Name>
     <BaseType>DefaultForms/TextBox</BaseType>
     <DefinedByBase>false</DefinedByBase>
@@ -188,6 +201,16 @@
   <Instance>
     <Name>ContainerInstance</Name>
     <BaseType>Container</BaseType>
+    <DefinedByBase>false</DefinedByBase>
+  </Instance>
+  <Instance>
+    <Name>NodeLinkContainer</Name>
+    <BaseType>Container</BaseType>
+    <DefinedByBase>false</DefinedByBase>
+  </Instance>
+  <Instance>
+    <Name>NodeLinkInstance</Name>
+    <BaseType>Nodes/NodeLink</BaseType>
     <DefinedByBase>false</DefinedByBase>
   </Instance>
   <Behaviors />

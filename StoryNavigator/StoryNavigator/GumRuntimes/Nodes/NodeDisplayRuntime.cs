@@ -22,8 +22,22 @@ namespace StoryNavigator.GumRuntimes.Nodes
             NodeInfoInstance.PassageNameText = nodePassage.name;
             NodeInfoInstance.PassagePidText = nodePassage.pid.ToString();
 
+            SetLinks();
             //TODO:  
             //Add links to NodeDisplayRunTime, and update them here
+        }
+
+        private void SetLinks()
+        {
+            ClearNodeLinks();
+            foreach (var passageLink in NodePassage.links)
+            {
+                var linkDisplay = new NodeLinkRuntime();
+                linkDisplay.PassageLinkNameText = passageLink.name;
+                linkDisplay.PassageLinkNumberText = passageLink.pid.ToString();
+                linkDisplay.AddToManagers();
+                NodeLinkContainer.Children.Add(linkDisplay);
+            }
         }
 
         public void UpdatePassageFromDisplay()
@@ -48,6 +62,18 @@ namespace StoryNavigator.GumRuntimes.Nodes
             NodePassage.position.y = pos.y;
 
             UpdatePassageFromDisplay();
+        }
+
+        private void ClearNodeLinks()
+        {
+            var linkCount = NodeLinkContainer.Children.Count();
+            for (var i = 0; i < linkCount; i++)
+            {
+                var nodeLink = NodeLinkContainer.Children[i] as NodeLinkRuntime;
+                NodeLinkContainer.Children.Remove(nodeLink);
+                NodeLinkContainer.RemoveFromManagers();
+                nodeLink.Destroy();
+            }
         }
     }
 }

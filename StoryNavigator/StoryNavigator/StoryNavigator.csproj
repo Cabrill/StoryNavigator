@@ -131,6 +131,8 @@
     <Compile Include="GumRuntimes\Nodes\NodeInfoRuntime.Generated.cs">
       <DependentUpon>NodeInfoRuntime.cs</DependentUpon>
     </Compile>
+    <Compile Include="GumRuntimes\Nodes\NodeLinkRuntime.cs" />
+    <Compile Include="GumRuntimes\Nodes\NodeLinkRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\Nodes\NodeTextEntryRuntime.cs" />
     <Compile Include="GumRuntimes\Nodes\NodeTextEntryRuntime.Generated.cs">
       <DependentUpon>NodeTextEntryRuntime.cs</DependentUpon>
@@ -306,6 +308,10 @@
     <None Include="content\gumproject\components\nodes\nodeinfo.gucx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>nodeinfo</Name>
+    </None>
+    <None Include="content\gumproject\components\nodes\nodelink.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>nodelink</Name>
     </None>
     <None Include="content\gumproject\fontcache\font10arial.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

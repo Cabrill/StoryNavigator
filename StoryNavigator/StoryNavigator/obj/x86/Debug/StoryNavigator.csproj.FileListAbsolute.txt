@@ -80,3 +80,4 @@ D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\c
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\content\gumproject\components\menubars\menuitem.gucx
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\Newtonsoft.Json.dll
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\Newtonsoft.Json.xml
+D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\content\gumproject\components\nodes\nodelink.gucx
