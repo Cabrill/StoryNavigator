@@ -14,7 +14,7 @@ namespace StoryNavigator.GumRuntimes.MenuBars
         {
             var menuItem = new MenuItemRuntime();
             menuItem.ItemText = menuItemText;
-            menuItem.Click += menuItemClickEvent;
+            menuItem.MenuItemButtonClick += menuItemClickEvent;
 
             if (shouldRightAlign)
                 menuItem.CurrentAlignmentState = MenuItemRuntime.Alignment.Right;

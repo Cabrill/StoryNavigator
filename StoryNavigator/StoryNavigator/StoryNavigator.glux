@@ -35,7 +35,7 @@
           <SourceFile />
           <SourceName />
           <SourceClassType>Layer</SourceClassType>
-          <InstanceName>GUILayer</InstanceName>
+          <InstanceName>NodeLayer</InstanceName>
           <AttachToContainer>true</AttachToContainer>
           <GenerateTimedEmit>true</GenerateTimedEmit>
           <IndependentOfCamera>true</IndependentOfCamera>
@@ -69,26 +69,11 @@
           <SourceFile />
           <SourceName />
           <SourceClassType>Layer</SourceClassType>
-          <InstanceName>NodeLayer</InstanceName>
+          <InstanceName>GUILayer</InstanceName>
           <AttachToContainer>true</AttachToContainer>
           <GenerateTimedEmit>true</GenerateTimedEmit>
           <IndependentOfCamera>true</IndependentOfCamera>
           <Is2D>true</Is2D>
-        </NamedObjectSave>
-        <NamedObjectSave>
-          <Properties>
-            <PropertySave>
-              <Name>SourceType</Name>
-              <ValueAsObject xsi:type="SourceType">File</ValueAsObject>
-            </PropertySave>
-          </Properties>
-          <SourceType>File</SourceType>
-          <SourceFile>GumProject/Screens/StoryNodeNavigatorGum.gusx</SourceFile>
-          <SourceName>NodeDisplayInstance (StoryNavigator.GumRuntimes.Nodes.NodeDisplayRuntime)</SourceName>
-          <InstanceName>NodeDisplayInstance</InstanceName>
-          <AttachToContainer>true</AttachToContainer>
-          <GenerateTimedEmit>true</GenerateTimedEmit>
-          <IndependentOfCamera>true</IndependentOfCamera>
         </NamedObjectSave>
         <NamedObjectSave>
           <Properties>
@@ -109,7 +94,35 @@
       </NamedObjects>
     </ScreenSave>
   </Screens>
-  <Entities />
+  <Entities>
+    <EntitySave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
+      <CustomVariables>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>bool</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>DisplayDebuggingConsole</Name>
+          <Type>bool</Type>
+          <DefaultValue xsi:type="xsd:boolean">true</DefaultValue>
+          <IsShared>true</IsShared>
+        </CustomVariable>
+      </CustomVariables>
+      <ImplementsIDrawableBatch>false</ImplementsIDrawableBatch>
+      <Name>Entities\DebugVariables</Name>
+      <Is2D>true</Is2D>
+    </EntitySave>
+  </Entities>
   <GlobalFiles>
     <ReferencedFileSave>
       <Properties>

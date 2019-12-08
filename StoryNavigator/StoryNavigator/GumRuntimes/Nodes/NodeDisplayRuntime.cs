@@ -41,5 +41,13 @@ namespace StoryNavigator.GumRuntimes.Nodes
                 NodeInfoInstance.PassagePidText = NodePassage.pid.ToString();
             }
         }
+
+        public void AssignPosition(Position pos)
+        {
+            NodePassage.position.x = pos.x;
+            NodePassage.position.y = pos.y;
+
+            UpdatePassageFromDisplay();
+        }
     }
 }

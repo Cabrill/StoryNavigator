@@ -52,11 +52,19 @@
     <Compile Include="DataTypes\DialogTree.cs" />
     <Compile Include="DataTypes\StoryData.cs" />
     <Compile Include="DataTypes\TileMapInfo.Generated.cs" />
+    <Compile Include="Entities\DebugVariables.cs" />
+    <Compile Include="Entities\DebugVariables.Generated.cs">
+      <DependentUpon>DebugVariables.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="FileAliases.Generated.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Game1.Generated.cs">
       <DependentUpon>Game1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GameScriptingDebugging\ScriptDebuggingForm.cs" />
+    <Compile Include="GameScriptingDebugging\ScriptDebuggingForm.Designer.cs">
+      <DependentUpon>ScriptDebuggingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalConstants\GlobalConstants.cs" />
     <Compile Include="GlobalContent.Generated.cs" />
