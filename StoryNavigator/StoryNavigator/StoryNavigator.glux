@@ -71,6 +71,7 @@
           <SourceClassType>Layer</SourceClassType>
           <InstanceName>GUILayer</InstanceName>
           <AttachToContainer>true</AttachToContainer>
+          <AttachToCamera>true</AttachToCamera>
           <GenerateTimedEmit>true</GenerateTimedEmit>
           <IndependentOfCamera>true</IndependentOfCamera>
           <Is2D>true</Is2D>
@@ -87,6 +88,7 @@
           <SourceName>MenuBarInstance (StoryNavigator.GumRuntimes.MenuBars.MenuBarRuntime)</SourceName>
           <InstanceName>TopMenuBar</InstanceName>
           <AttachToContainer>true</AttachToContainer>
+          <AttachToCamera>true</AttachToCamera>
           <GenerateTimedEmit>true</GenerateTimedEmit>
           <IndependentOfCamera>true</IndependentOfCamera>
           <LayerOn>GUILayer</LayerOn>

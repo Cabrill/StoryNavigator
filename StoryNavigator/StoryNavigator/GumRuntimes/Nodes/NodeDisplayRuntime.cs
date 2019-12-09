@@ -8,10 +8,51 @@ namespace StoryNavigator.GumRuntimes.Nodes
 {
     public partial class NodeDisplayRuntime
     {
+        public static FlatRedBall.Graphics.Layer FrbLayer;
+        public static RenderingLibrary.Graphics.Layer GumLayer;
+
         public Passage NodePassage { get; protected set; }
+
+        
         partial void CustomInitialize () 
         {
             
+        }
+
+        public void HandleBeingActiveNode()
+        {
+            foreach (var linkDisplay in NodeLinkContainer.Children)
+            {
+                if (linkDisplay is NodeLinkRuntime nodeLinkDisplay )
+                {
+                    if (nodeLinkDisplay.CurrentConnectionStateState == NodeLinkRuntime.ConnectionState.Add)
+                    {
+                        nodeLinkDisplay.Visible = false;
+                    }
+                    else
+                    {
+                        nodeLinkDisplay.CurrentConnectionStateState = NodeLinkRuntime.ConnectionState.DisplayExistingWithoutEdit;
+                    }
+                }
+            }
+        }
+
+        public void RespondToLosingActiveStatus()
+        {
+            foreach (var linkDisplay in NodeLinkContainer.Children)
+            {
+                if (linkDisplay is NodeLinkRuntime nodeLinkDisplay)
+                {
+                    if (nodeLinkDisplay.CurrentConnectionStateState == NodeLinkRuntime.ConnectionState.Add)
+                    {
+                        nodeLinkDisplay.Visible = true;
+                    }
+                    else
+                    {
+                        nodeLinkDisplay.CurrentConnectionStateState = NodeLinkRuntime.ConnectionState.DisplayExistingWithEdit;
+                    }
+                }
+            }
         }
 
         public void SetPassage(Passage nodePassage)
@@ -44,6 +85,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
             linkDisplay.PassageLinkNameText = passageLink.name;
             linkDisplay.LinkText = passageLink.link;
             linkDisplay.PassageLinkNumberText = passageLink.pid.ToString();
+            linkDisplay.MoveToFrbLayer(FrbLayer, GumLayer);
             linkDisplay.AddToManagers();
             NodeLinkContainer.Children.Add(linkDisplay);
         }
@@ -54,6 +96,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
             var linkDisplay = new NodeLinkRuntime();
             linkDisplay.CurrentConnectionStateState = NodeLinkRuntime.ConnectionState.Add;
             linkDisplay.OpenLinkButtonClick += LinkDisplay_OpenLinkButtonClick;
+            linkDisplay.MoveToFrbLayer(FrbLayer, GumLayer);
             linkDisplay.AddToManagers();
             NodeLinkContainer.Children.Add(linkDisplay);
         }

@@ -42,6 +42,9 @@ namespace StoryNavigator.Screens
         #region Initialize
         void CustomInitialize()
         {
+            NodeDisplayRuntime.FrbLayer = NodeLayer;
+            NodeDisplayRuntime.GumLayer = NodeLayerGum;
+
             InitializeCamera();
             InitializeTopMenu();
             AttemptLoadLastSavedStoryOrCreateNew();
@@ -166,22 +169,20 @@ namespace StoryNavigator.Screens
 
         private void HandleInputActivity()
         {
+            HandleNodeDraggingActivity();
+            HandleMouseWheelCameraZoomActivity();
+        }
+
+        private void HandleNodeDraggingActivity()
+        {
             var cursor = GuiManager.Cursor;
-
-#if DEBUG
-            if (cursor.ScreenXChange > 0 || cursor.ScreenYChange > 0)
-            {
-                //But these are never greater than zero, why?
-                int m = 3;
-            }
-
 
             if (nodeIsGrabbed && currentDraggedNode is IWindow nodeWindow)
             {
                 //This is is hit
                 nodeWindow.X += cursor.ScreenXChange;
                 nodeWindow.Y += cursor.ScreenYChange;
-                debugStringBuilder.Append($"NodeX: {nodeWindow.X}\nNodeY:{nodeWindow.Y}");
+
             }
 
             if (cursor.PrimaryPush && currentDraggedNode == null && cursor.WindowOver is NodeDisplayRuntime nodeDisplay)
@@ -189,18 +190,40 @@ namespace StoryNavigator.Screens
                 nodeIsGrabbed = true;
                 currentDraggedNode = nodeDisplay;
                 currentDraggedNode.Z = incrementalNodeZ;
+
+                currentDraggedNode.HandleBeingActiveNode();
+
+                //TODO
                 //This should ensure objects are always drawn in the order they were last interacted with
                 //...but it doesn't :(
                 //They are drawn to the NodeLayer, which is set to order by Z, but setting Z on our
                 //NodeDisplayGumRuntime instances does not change their draw order
                 incrementalNodeZ = incrementalNodeZ + float.MinValue;
             }
-            else if (!cursor.PrimaryButton.IsDown)
+            else if (!cursor.PrimaryButton.IsDown && currentDraggedNode != null)
             {
+                currentDraggedNode.RespondToLosingActiveStatus();
+
                 nodeIsGrabbed = false;
                 currentDraggedNode = null;
             }
-#endif
+        }
+
+        private void HandleMouseWheelCameraZoomActivity()
+        {
+            //TODO:
+            //Trying to zoom the nodes when middle-mouse is used
+            if (InputManager.Mouse.ScrollWheel.Velocity != 0)
+            {
+                if (NodeLayerGum.LayerCameraSettings == null)
+                {
+                    NodeLayerGum.LayerCameraSettings = new RenderingLibrary.Graphics.LayerCameraSettings();
+                }
+                NodeLayerGum.LayerCameraSettings.Zoom += InputManager.Mouse.ScrollWheel.Value;
+
+                //This just makes the screen go black
+                //RenderingLibrary.SystemManagers.Default.Renderer.Camera.Zoom += InputManager.Mouse.ScrollWheel.Value;
+            }
         }
 
         #endregion
