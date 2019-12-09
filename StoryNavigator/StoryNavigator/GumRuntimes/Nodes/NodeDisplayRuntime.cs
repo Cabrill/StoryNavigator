@@ -32,13 +32,56 @@ namespace StoryNavigator.GumRuntimes.Nodes
             ClearNodeLinks();
             foreach (var passageLink in NodePassage.links)
             {
-                var linkDisplay = new NodeLinkRuntime();
-                linkDisplay.PassageLinkNameText = passageLink.name;
-                linkDisplay.LinkText = passageLink.link;
-                linkDisplay.PassageLinkNumberText = passageLink.pid.ToString();
-                linkDisplay.AddToManagers();
-                NodeLinkContainer.Children.Add(linkDisplay);
+                CreateLinkDisplayForPassageLink(passageLink);
             }
+
+            CreateAddNewLinkButton();
+        }
+
+        private void CreateLinkDisplayForPassageLink(Link passageLink)
+        {
+            var linkDisplay = new NodeLinkRuntime();
+            linkDisplay.PassageLinkNameText = passageLink.name;
+            linkDisplay.LinkText = passageLink.link;
+            linkDisplay.PassageLinkNumberText = passageLink.pid.ToString();
+            linkDisplay.AddToManagers();
+            NodeLinkContainer.Children.Add(linkDisplay);
+        }
+
+
+        private void CreateAddNewLinkButton()
+        {
+            var linkDisplay = new NodeLinkRuntime();
+            linkDisplay.CurrentConnectionStateState = NodeLinkRuntime.ConnectionState.Add;
+            linkDisplay.OpenLinkButtonClick += LinkDisplay_OpenLinkButtonClick;
+            linkDisplay.AddToManagers();
+            NodeLinkContainer.Children.Add(linkDisplay);
+        }
+
+        private void LinkDisplay_OpenLinkButtonClick(IWindow window)
+        {
+            if (window is NodeLinkRuntime nodeLinkDisplay)
+            {
+                var newPassageLink = AddNewLinkToPassage();
+
+                nodeLinkDisplay.CurrentConnectionStateState = NodeLinkRuntime.ConnectionState.DisplayExistingWithEdit;
+                nodeLinkDisplay.PassageLinkNameText = newPassageLink.name;
+                nodeLinkDisplay.LinkText = newPassageLink.link;
+                nodeLinkDisplay.PassageLinkNumberText = newPassageLink.pid.ToString();
+            }
+        }
+
+        private Link AddNewLinkToPassage()
+        {
+            var newLink = new Link();
+            newLink.name = "NewLink";
+            newLink.link = "[YourLink]";
+
+            var currentLinks = NodePassage.links.ToList();
+            currentLinks.Add(newLink);
+            NodePassage.links = currentLinks.ToArray();
+
+            return newLink;
         }
 
         public void UpdatePassageFromDisplay()

@@ -6,7 +6,7 @@
     <Name>Default</Name>
     <Variable>
       <Type>string</Type>
-      <Name>ButtonInstance.Parent</Name>
+      <Name>EditLinkButton.Parent</Name>
       <Value xsi:type="xsd:string">LinkDescriptionContainer</Value>
       <SetsValue>true</SetsValue>
     </Variable>
@@ -168,7 +168,7 @@
     <Variable>
       <Type>string</Type>
       <Name>NodeLinkDescriptionText.Text</Name>
-      <Value xsi:type="xsd:string">Short description</Value>
+      <Value xsi:type="xsd:string">Link name</Value>
       <ExposedAsName>PassageLinkNameText</ExposedAsName>
       <SetsValue>true</SetsValue>
     </Variable>
@@ -290,8 +290,9 @@
     <Variable>
       <Type>string</Type>
       <Name>NodeLinkText.Text</Name>
+      <Value xsi:type="xsd:string">[Link]</Value>
       <ExposedAsName>LinkText</ExposedAsName>
-      <SetsValue>false</SetsValue>
+      <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>float</Type>
@@ -376,6 +377,57 @@
     <State>
       <Name>Add</Name>
       <Variable>
+        <Type>float</Type>
+        <Name>EditLinkButton.Height</Name>
+        <Value xsi:type="xsd:float">48</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>string</Type>
+        <Name>EditLinkButton.Parent</Name>
+        <Value xsi:type="xsd:string">LinkDescriptionContainer</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>string</Type>
+        <Name>EditLinkButton.Text</Name>
+        <ExposedAsName>Text</ExposedAsName>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>bool</Type>
+        <Name>EditLinkButton.Visible</Name>
+        <Value xsi:type="xsd:boolean">true</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>float</Type>
+        <Name>EditLinkButton.Width</Name>
+        <Value xsi:type="xsd:float">256</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>DimensionUnitType</Type>
+        <Name>EditLinkButton.Width Units</Name>
+        <Value xsi:type="xsd:int">0</Value>
+        <Category>Dimensions</Category>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>HorizontalAlignment</Type>
+        <Name>EditLinkButton.X Origin</Name>
+        <Value xsi:type="xsd:int">0</Value>
+        <Category>Position</Category>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>PositionUnitType</Type>
+        <Name>EditLinkButton.X Units</Name>
+        <Value xsi:type="xsd:int">0</Value>
+        <Category>Position</Category>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
         <Type>bool</Type>
         <Name>LinkDescriptionBackgroundNineSlice.Visible</Name>
         <Value xsi:type="xsd:boolean">false</Value>
@@ -387,107 +439,56 @@
         <Value xsi:type="xsd:boolean">true</Value>
         <SetsValue>true</SetsValue>
       </Variable>
-      <Variable>
-        <Type>string</Type>
-        <Name>ButtonInstance.Parent</Name>
-        <Value xsi:type="xsd:string">LinkDescriptionContainer</Value>
-        <SetsValue>true</SetsValue>
-      </Variable>
-      <Variable>
-        <Type>string</Type>
-        <Name>ButtonInstance.Text</Name>
-        <ExposedAsName>Text</ExposedAsName>
-        <SetsValue>true</SetsValue>
-      </Variable>
-      <Variable>
-        <Type>float</Type>
-        <Name>ButtonInstance.Height</Name>
-        <Value xsi:type="xsd:float">48</Value>
-        <SetsValue>true</SetsValue>
-      </Variable>
-      <Variable>
-        <Type>DimensionUnitType</Type>
-        <Name>ButtonInstance.Width Units</Name>
-        <Value xsi:type="xsd:int">0</Value>
-        <Category>Dimensions</Category>
-        <SetsValue>true</SetsValue>
-      </Variable>
-      <Variable>
-        <Type>float</Type>
-        <Name>ButtonInstance.Width</Name>
-        <Value xsi:type="xsd:float">256</Value>
-        <SetsValue>true</SetsValue>
-      </Variable>
-      <Variable>
-        <Type>PositionUnitType</Type>
-        <Name>ButtonInstance.X Units</Name>
-        <Value xsi:type="xsd:int">0</Value>
-        <Category>Position</Category>
-        <SetsValue>true</SetsValue>
-      </Variable>
-      <Variable>
-        <Type>HorizontalAlignment</Type>
-        <Name>ButtonInstance.X Origin</Name>
-        <Value xsi:type="xsd:int">0</Value>
-        <Category>Position</Category>
-        <SetsValue>true</SetsValue>
-      </Variable>
-      <Variable>
-        <Type>bool</Type>
-        <Name>ButtonInstance.Visible</Name>
-        <Value xsi:type="xsd:boolean">true</Value>
-        <SetsValue>true</SetsValue>
-      </Variable>
     </State>
     <State>
       <Name>DisplayExistingWithoutEdit</Name>
       <Variable>
         <Type>float</Type>
-        <Name>ButtonInstance.Height</Name>
+        <Name>EditLinkButton.Height</Name>
         <Value xsi:type="xsd:float">48</Value>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
         <Type>string</Type>
-        <Name>ButtonInstance.Parent</Name>
+        <Name>EditLinkButton.Parent</Name>
         <Value xsi:type="xsd:string">LinkDescriptionContainer</Value>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
         <Type>string</Type>
-        <Name>ButtonInstance.Text</Name>
+        <Name>EditLinkButton.Text</Name>
         <ExposedAsName>Text</ExposedAsName>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
         <Type>bool</Type>
-        <Name>ButtonInstance.Visible</Name>
+        <Name>EditLinkButton.Visible</Name>
         <Value xsi:type="xsd:boolean">false</Value>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
         <Type>float</Type>
-        <Name>ButtonInstance.Width</Name>
+        <Name>EditLinkButton.Width</Name>
         <Value xsi:type="xsd:float">256</Value>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
         <Type>DimensionUnitType</Type>
-        <Name>ButtonInstance.Width Units</Name>
+        <Name>EditLinkButton.Width Units</Name>
         <Value xsi:type="xsd:int">0</Value>
         <Category>Dimensions</Category>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
         <Type>HorizontalAlignment</Type>
-        <Name>ButtonInstance.X Origin</Name>
+        <Name>EditLinkButton.X Origin</Name>
         <Value xsi:type="xsd:int">0</Value>
         <Category>Position</Category>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
         <Type>PositionUnitType</Type>
-        <Name>ButtonInstance.X Units</Name>
+        <Name>EditLinkButton.X Units</Name>
         <Value xsi:type="xsd:int">0</Value>
         <Category>Position</Category>
         <SetsValue>true</SetsValue>
@@ -509,43 +510,49 @@
       <Name>DisplayExistingWithEdit</Name>
       <Variable>
         <Type>float</Type>
-        <Name>ButtonInstance.Height</Name>
+        <Name>EditLinkButton.Height</Name>
         <Value xsi:type="xsd:float">24</Value>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
         <Type>string</Type>
-        <Name>ButtonInstance.Parent</Name>
+        <Name>EditLinkButton.Parent</Name>
         <Value xsi:type="xsd:string">LinkDescriptionContainer</Value>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
         <Type>string</Type>
-        <Name>ButtonInstance.Text</Name>
+        <Name>EditLinkButton.Text</Name>
         <Value xsi:type="xsd:string">(~)</Value>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
+        <Type>bool</Type>
+        <Name>EditLinkButton.Visible</Name>
+        <Value xsi:type="xsd:boolean">true</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
         <Type>float</Type>
-        <Name>ButtonInstance.Width</Name>
+        <Name>EditLinkButton.Width</Name>
         <Value xsi:type="xsd:float">24</Value>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
         <Type>Gum.DataTypes.DimensionUnitType</Type>
-        <Name>ButtonInstance.Width Units</Name>
+        <Name>EditLinkButton.Width Units</Name>
         <Value xsi:type="xsd:int">0</Value>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
         <Type>RenderingLibrary.Graphics.HorizontalAlignment</Type>
-        <Name>ButtonInstance.X Origin</Name>
+        <Name>EditLinkButton.X Origin</Name>
         <Value xsi:type="xsd:int">1</Value>
         <SetsValue>true</SetsValue>
       </Variable>
       <Variable>
         <Type>Gum.Managers.PositionUnitType</Type>
-        <Name>ButtonInstance.X Units</Name>
+        <Name>EditLinkButton.X Units</Name>
         <Value xsi:type="xsd:int">4</Value>
         <SetsValue>true</SetsValue>
       </Variable>
@@ -559,12 +566,6 @@
         <Type>bool</Type>
         <Name>OpenLinkButton.Visible</Name>
         <Value xsi:type="xsd:boolean">false</Value>
-        <SetsValue>true</SetsValue>
-      </Variable>
-      <Variable>
-        <Type>bool</Type>
-        <Name>ButtonInstance.Visible</Name>
-        <Value xsi:type="xsd:boolean">true</Value>
         <SetsValue>true</SetsValue>
       </Variable>
     </State>
@@ -600,7 +601,7 @@
     <DefinedByBase>false</DefinedByBase>
   </Instance>
   <Instance>
-    <Name>ButtonInstance</Name>
+    <Name>EditLinkButton</Name>
     <BaseType>DefaultForms/Button</BaseType>
     <DefinedByBase>false</DefinedByBase>
   </Instance>

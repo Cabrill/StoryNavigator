@@ -81,3 +81,5 @@ D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\c
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\Newtonsoft.Json.dll
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\Newtonsoft.Json.xml
 D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\content\gumproject\components\nodes\nodelink.gucx
+D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\content\gumproject\fontcache\font14arial.fnt
+D:\GitHub\StoryNavigator\StoryNavigator\StoryNavigator\bin\DesktopGL\x86\Debug\content\gumproject\fontcache\font14arial_0.png
