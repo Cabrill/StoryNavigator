@@ -5,53 +5,6 @@
   <State>
     <Name>Default</Name>
     <Variable>
-      <Type>ChildrenLayout</Type>
-      <Name>ContainerInstance.Children Layout</Name>
-      <Value xsi:type="xsd:int">1</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>float</Type>
-      <Name>ContainerInstance.Height</Name>
-      <Value xsi:type="xsd:float">-14</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>DimensionUnitType</Type>
-      <Name>ContainerInstance.Height Units</Name>
-      <Value xsi:type="xsd:int">2</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>string</Type>
-      <Name>ContainerInstance.Parent</Name>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>float</Type>
-      <Name>ContainerInstance.Width</Name>
-      <Value xsi:type="xsd:float">-14</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>DimensionUnitType</Type>
-      <Name>ContainerInstance.Width Units</Name>
-      <Value xsi:type="xsd:int">2</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>float</Type>
-      <Name>ContainerInstance.X</Name>
-      <Value xsi:type="xsd:float">7</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>float</Type>
-      <Name>ContainerInstance.Y</Name>
-      <Value xsi:type="xsd:float">7</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
       <Type>bool</Type>
       <Name>HasEvents</Name>
       <Value xsi:type="xsd:boolean">true</Value>
@@ -60,7 +13,60 @@
     <Variable>
       <Type>float</Type>
       <Name>Height</Name>
-      <Value xsi:type="xsd:float">125</Value>
+      <Value xsi:type="xsd:float">22</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>DimensionUnitType</Type>
+      <Name>Height Units</Name>
+      <Value xsi:type="xsd:int">4</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>ChildrenLayout</Type>
+      <Name>InfoContainer.Children Layout</Name>
+      <Value xsi:type="xsd:int">1</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>float</Type>
+      <Name>InfoContainer.Height</Name>
+      <Value xsi:type="xsd:float">-14</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>DimensionUnitType</Type>
+      <Name>InfoContainer.Height Units</Name>
+      <Value xsi:type="xsd:int">4</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>string</Type>
+      <Name>InfoContainer.Parent</Name>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>float</Type>
+      <Name>InfoContainer.Width</Name>
+      <Value xsi:type="xsd:float">-14</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>DimensionUnitType</Type>
+      <Name>InfoContainer.Width Units</Name>
+      <Value xsi:type="xsd:int">2</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>float</Type>
+      <Name>InfoContainer.X</Name>
+      <Value xsi:type="xsd:float">7</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>float</Type>
+      <Name>InfoContainer.Y</Name>
+      <Value xsi:type="xsd:float">7</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -90,7 +96,7 @@
     <Variable>
       <Type>string</Type>
       <Name>NodeInfoInstance.Parent</Name>
-      <Value xsi:type="xsd:string">ContainerInstance</Value>
+      <Value xsi:type="xsd:string">InfoContainer</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -155,13 +161,14 @@
     <Variable>
       <Type>string</Type>
       <Name>TextBoxInstance.Parent</Name>
-      <Value xsi:type="xsd:string">ContainerInstance</Value>
+      <Value xsi:type="xsd:string">InfoContainer</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>string</Type>
       <Name>TextBoxInstance.Text</Name>
       <Value xsi:type="xsd:string">Node description</Value>
+      <ExposedAsName>PassageText</ExposedAsName>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -174,6 +181,18 @@
       <Type>DimensionUnitType</Type>
       <Name>TextBoxInstance.Width Units</Name>
       <Value xsi:type="xsd:int">1</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>float</Type>
+      <Name>TextBoxInstance.Y</Name>
+      <Value xsi:type="xsd:float">0</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>VerticalAlignment</Type>
+      <Name>TextBoxInstance.Y Origin</Name>
+      <Value xsi:type="xsd:int">0</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -199,7 +218,7 @@
     <DefinedByBase>false</DefinedByBase>
   </Instance>
   <Instance>
-    <Name>ContainerInstance</Name>
+    <Name>InfoContainer</Name>
     <BaseType>Container</BaseType>
     <DefinedByBase>false</DefinedByBase>
   </Instance>

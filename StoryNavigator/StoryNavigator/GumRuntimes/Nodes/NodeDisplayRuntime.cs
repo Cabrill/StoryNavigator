@@ -19,11 +19,16 @@ namespace StoryNavigator.GumRuntimes.Nodes
             
         }
 
-        public void HandleBeingActiveNode()
+        public void HandleBeingDragged()
+        {
+            NodeLinkContainer.Visible = false;
+        }
+
+        public void RespondToLosingActiveStatus()
         {
             foreach (var linkDisplay in NodeLinkContainer.Children)
             {
-                if (linkDisplay is NodeLinkRuntime nodeLinkDisplay )
+                if (linkDisplay is NodeLinkRuntime nodeLinkDisplay)
                 {
                     if (nodeLinkDisplay.CurrentConnectionStateState == NodeLinkRuntime.ConnectionState.Add)
                     {
@@ -37,7 +42,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
             }
         }
 
-        public void RespondToLosingActiveStatus()
+        public void HandleDraggingStopped()
         {
             foreach (var linkDisplay in NodeLinkContainer.Children)
             {
@@ -53,6 +58,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
                     }
                 }
             }
+            NodeLinkContainer.Visible = true;
         }
 
         public void SetPassage(Passage nodePassage)
@@ -61,11 +67,11 @@ namespace StoryNavigator.GumRuntimes.Nodes
             X = nodePassage.position.x;
             Y = nodePassage.position.y;
             NodeInfoInstance.PassageNameText = nodePassage.name;
+            this.PassageText = nodePassage.text;
+
             NodeInfoInstance.PassagePidText = nodePassage.pid.ToString();
 
             SetLinks();
-            //TODO:  
-            //Add links to NodeDisplayRunTime, and update them here
         }
 
         private void SetLinks()

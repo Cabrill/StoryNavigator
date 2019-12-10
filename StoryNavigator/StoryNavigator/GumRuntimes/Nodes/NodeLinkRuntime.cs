@@ -36,5 +36,17 @@ namespace StoryNavigator.GumRuntimes.Nodes
                 PassageLinkNumberText = PassageLink.pid.ToString();
             }
         }
+
+        internal void HandleBeingDragged()
+        {
+            //TODO:  Draw a dotted-line from origin
+        }
+
+        internal void HandleDraggingStopped()
+        {
+
+            //TODO:  Check for overlap with node
+            //and create association if an overlapping one exists
+        }
     }
 }

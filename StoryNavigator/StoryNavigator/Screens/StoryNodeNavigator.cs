@@ -28,7 +28,8 @@ namespace StoryNavigator.Screens
         #region Properties
         //Screen-specific properties
         private bool nodeIsGrabbed = false;
-        private float incrementalNodeZ = 0f;
+        private bool linkIsGrabbed = false;
+        private float incrementalZ = 0f;
 
         //Story data properties
         private StoryData currentStoryData;
@@ -37,6 +38,7 @@ namespace StoryNavigator.Screens
         //Node properties
         private List<NodeDisplayRuntime> NodeDisplays = new List<NodeDisplayRuntime>();
         NodeDisplayRuntime currentDraggedNode;
+        NodeLinkRuntime currentDraggedLink;
         #endregion
 
         #region Initialize
@@ -81,6 +83,7 @@ namespace StoryNavigator.Screens
         {
             var newPassage = currentStoryData.AddNewPassage();
             CreateNewNodeDisplayForPassage(newPassage);
+            currentDraggedNode?.RespondToLosingActiveStatus();
         }
         #endregion
 
@@ -120,7 +123,7 @@ namespace StoryNavigator.Screens
 
         #region Story node display & interaction
         
-        private void CreateNewNodeDisplayForPassage(Passage passage)
+        private NodeDisplayRuntime CreateNewNodeDisplayForPassage(Passage passage)
         {
             var newNode = new NodeDisplayRuntime();
             newNode.SetPassage(passage);
@@ -128,6 +131,8 @@ namespace StoryNavigator.Screens
             newNode.AddToManagers();
             newNode.MoveToFrbLayer(NodeLayer, NodeLayerGum);
             newNode.AssignPosition(GetSuitablePositionForNewNode());
+
+            return newNode;
         }
 
         private Position GetSuitablePositionForNewNode()
@@ -170,6 +175,7 @@ namespace StoryNavigator.Screens
         private void HandleInputActivity()
         {
             HandleNodeDraggingActivity();
+            HandleLinkDraggingActivity();
             HandleMouseWheelCameraZoomActivity();
         }
 
@@ -179,33 +185,63 @@ namespace StoryNavigator.Screens
 
             if (nodeIsGrabbed && currentDraggedNode is IWindow nodeWindow)
             {
-                //This is is hit
                 nodeWindow.X += cursor.ScreenXChange;
                 nodeWindow.Y += cursor.ScreenYChange;
-
             }
 
-            if (cursor.PrimaryPush && currentDraggedNode == null && cursor.WindowOver is NodeDisplayRuntime nodeDisplay)
+            if (cursor.PrimaryPush && !nodeIsGrabbed && cursor.WindowOver is NodeDisplayRuntime nodeDisplay)
             {
+                currentDraggedNode?.RespondToLosingActiveStatus();
                 nodeIsGrabbed = true;
                 currentDraggedNode = nodeDisplay;
-                currentDraggedNode.Z = incrementalNodeZ;
+                currentDraggedNode.Z = incrementalZ;
 
-                currentDraggedNode.HandleBeingActiveNode();
+                currentDraggedNode.HandleBeingDragged();
 
                 //TODO
                 //This should ensure objects are always drawn in the order they were last interacted with
                 //...but it doesn't :(
                 //They are drawn to the NodeLayer, which is set to order by Z, but setting Z on our
                 //NodeDisplayGumRuntime instances does not change their draw order
-                incrementalNodeZ = incrementalNodeZ + float.MinValue;
+                incrementalZ = incrementalZ + float.MinValue;
             }
-            else if (!cursor.PrimaryButton.IsDown && currentDraggedNode != null)
+            else if (!cursor.PrimaryButton.IsDown && nodeIsGrabbed == true)
             {
-                currentDraggedNode.RespondToLosingActiveStatus();
-
+                currentDraggedNode?.HandleDraggingStopped();
                 nodeIsGrabbed = false;
-                currentDraggedNode = null;
+            }
+        }
+
+        private void HandleLinkDraggingActivity()
+        {
+            var cursor = GuiManager.Cursor;
+
+            if (linkIsGrabbed && currentDraggedLink is IWindow nodeLinkAsIWindow)
+            {
+                nodeLinkAsIWindow.X += cursor.ScreenXChange;
+                nodeLinkAsIWindow.Y += cursor.ScreenYChange;
+            }
+
+            if (cursor.PrimaryPush && !linkIsGrabbed && cursor.WindowOver is NodeLinkRuntime nodeLink)
+            {
+                //currentDraggedLink?.RespondToLosingActiveStatus();
+                linkIsGrabbed = true;
+                currentDraggedLink = nodeLink;
+                currentDraggedLink.Z = incrementalZ;
+
+                currentDraggedLink.HandleBeingDragged();
+
+                //TODO
+                //This should ensure objects are always drawn in the order they were last interacted with
+                //...but it doesn't :(
+                //They are drawn to the NodeLayer, which is set to order by Z, but setting Z on our
+                //NodeDisplayGumRuntime instances does not change their draw order
+                incrementalZ = incrementalZ + float.MinValue;
+            }
+            else if (!cursor.PrimaryButton.IsDown && linkIsGrabbed)
+            {
+                currentDraggedLink?.HandleDraggingStopped();
+                linkIsGrabbed = false;
             }
         }
 
@@ -215,11 +251,8 @@ namespace StoryNavigator.Screens
             //Trying to zoom the nodes when middle-mouse is used
             if (InputManager.Mouse.ScrollWheel.Velocity != 0)
             {
-                if (NodeLayerGum.LayerCameraSettings == null)
-                {
-                    NodeLayerGum.LayerCameraSettings = new RenderingLibrary.Graphics.LayerCameraSettings();
-                }
-                NodeLayerGum.LayerCameraSettings.Zoom += InputManager.Mouse.ScrollWheel.Value;
+                var gumCamera = RenderingLibrary.SystemManagers.Default.Renderer.Camera;
+                gumCamera.Zoom += InputManager.Mouse.ScrollWheel.Velocity;
 
                 //This just makes the screen go black
                 //RenderingLibrary.SystemManagers.Default.Renderer.Camera.Zoom += InputManager.Mouse.ScrollWheel.Value;
