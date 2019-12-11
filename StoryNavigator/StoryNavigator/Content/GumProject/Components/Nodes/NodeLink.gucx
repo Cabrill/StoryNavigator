@@ -5,15 +5,15 @@
   <State>
     <Name>Default</Name>
     <Variable>
+      <Type>ConnectionStateState</Type>
+      <Name>ConnectionStateState</Name>
+      <SetsValue>false</SetsValue>
+    </Variable>
+    <Variable>
       <Type>string</Type>
       <Name>EditLinkButton.Parent</Name>
       <Value xsi:type="xsd:string">LinkDescriptionContainer</Value>
       <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>ConnectionStateState</Type>
-      <Name>ConnectionStateState</Name>
-      <SetsValue>false</SetsValue>
     </Variable>
     <Variable>
       <Type>bool</Type>
@@ -439,6 +439,12 @@
         <Value xsi:type="xsd:boolean">true</Value>
         <SetsValue>true</SetsValue>
       </Variable>
+      <Variable>
+        <Type>ButtonCategory</Type>
+        <Name>OpenLinkButton.ButtonCategoryState</Name>
+        <Value xsi:type="xsd:string">Enabled</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
     </State>
     <State>
       <Name>DisplayExistingWithoutEdit</Name>
@@ -505,6 +511,12 @@
         <Value xsi:type="xsd:boolean">false</Value>
         <SetsValue>true</SetsValue>
       </Variable>
+      <Variable>
+        <Type>ButtonCategory</Type>
+        <Name>OpenLinkButton.ButtonCategoryState</Name>
+        <Value xsi:type="xsd:string">Enabled</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
     </State>
     <State>
       <Name>DisplayExistingWithEdit</Name>
@@ -566,6 +578,156 @@
         <Type>bool</Type>
         <Name>OpenLinkButton.Visible</Name>
         <Value xsi:type="xsd:boolean">false</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>ButtonCategory</Type>
+        <Name>OpenLinkButton.ButtonCategoryState</Name>
+        <Value xsi:type="xsd:string">Enabled</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+    </State>
+    <State>
+      <Name>Dragged</Name>
+      <Variable>
+        <Type>float</Type>
+        <Name>EditLinkButton.Height</Name>
+        <Value xsi:type="xsd:float">48</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>string</Type>
+        <Name>EditLinkButton.Parent</Name>
+        <Value xsi:type="xsd:string">LinkDescriptionContainer</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>string</Type>
+        <Name>EditLinkButton.Text</Name>
+        <ExposedAsName>Text</ExposedAsName>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>bool</Type>
+        <Name>EditLinkButton.Visible</Name>
+        <Value xsi:type="xsd:boolean">true</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>float</Type>
+        <Name>EditLinkButton.Width</Name>
+        <Value xsi:type="xsd:float">256</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>DimensionUnitType</Type>
+        <Name>EditLinkButton.Width Units</Name>
+        <Value xsi:type="xsd:int">0</Value>
+        <Category>Dimensions</Category>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>HorizontalAlignment</Type>
+        <Name>EditLinkButton.X Origin</Name>
+        <Value xsi:type="xsd:int">0</Value>
+        <Category>Position</Category>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>PositionUnitType</Type>
+        <Name>EditLinkButton.X Units</Name>
+        <Value xsi:type="xsd:int">0</Value>
+        <Category>Position</Category>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>bool</Type>
+        <Name>LinkDescriptionBackgroundNineSlice.Visible</Name>
+        <Value xsi:type="xsd:boolean">false</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>string</Type>
+        <Name>OpenLinkButton.ButtonCategoryState</Name>
+        <Value xsi:type="xsd:string">Pushed</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>bool</Type>
+        <Name>OpenLinkButton.Visible</Name>
+        <Value xsi:type="xsd:boolean">true</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+    </State>
+    <State>
+      <Name>DraggedOverValidNode</Name>
+      <Variable>
+        <Type>float</Type>
+        <Name>EditLinkButton.Height</Name>
+        <Value xsi:type="xsd:float">48</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>string</Type>
+        <Name>EditLinkButton.Parent</Name>
+        <Value xsi:type="xsd:string">LinkDescriptionContainer</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>string</Type>
+        <Name>EditLinkButton.Text</Name>
+        <ExposedAsName>Text</ExposedAsName>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>bool</Type>
+        <Name>EditLinkButton.Visible</Name>
+        <Value xsi:type="xsd:boolean">true</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>float</Type>
+        <Name>EditLinkButton.Width</Name>
+        <Value xsi:type="xsd:float">256</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>DimensionUnitType</Type>
+        <Name>EditLinkButton.Width Units</Name>
+        <Value xsi:type="xsd:int">0</Value>
+        <Category>Dimensions</Category>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>HorizontalAlignment</Type>
+        <Name>EditLinkButton.X Origin</Name>
+        <Value xsi:type="xsd:int">0</Value>
+        <Category>Position</Category>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>PositionUnitType</Type>
+        <Name>EditLinkButton.X Units</Name>
+        <Value xsi:type="xsd:int">0</Value>
+        <Category>Position</Category>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>bool</Type>
+        <Name>LinkDescriptionBackgroundNineSlice.Visible</Name>
+        <Value xsi:type="xsd:boolean">false</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>ButtonCategory</Type>
+        <Name>OpenLinkButton.ButtonCategoryState</Name>
+        <Value xsi:type="xsd:string">Highlighted</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+      <Variable>
+        <Type>bool</Type>
+        <Name>OpenLinkButton.Visible</Name>
+        <Value xsi:type="xsd:boolean">true</Value>
         <SetsValue>true</SetsValue>
       </Variable>
     </State>

@@ -16,6 +16,7 @@ using FlatRedBall.Gui;
 using StoryNavigator.DataTypes;
 using static StoryNavigator.DataTypes.DialogTreeRaw;
 using StoryNavigator.Entities;
+using StoryNavigator.GumRuntimes.DefaultForms;
 
 namespace StoryNavigator.Screens
 {
@@ -38,7 +39,7 @@ namespace StoryNavigator.Screens
         //Node properties
         private List<NodeDisplayRuntime> NodeDisplays = new List<NodeDisplayRuntime>();
         NodeDisplayRuntime currentDraggedNode;
-        NodeLinkRuntime currentDraggedLink;
+        ButtonRuntime currentDraggedLink;
         #endregion
 
         #region Initialize
@@ -183,12 +184,13 @@ namespace StoryNavigator.Screens
         {
             var cursor = GuiManager.Cursor;
 
+            debugStringBuilder.AppendLine(cursor.WindowOver?.ToString());
+
             if (nodeIsGrabbed && currentDraggedNode is IWindow nodeWindow)
             {
                 nodeWindow.X += cursor.ScreenXChange;
                 nodeWindow.Y += cursor.ScreenYChange;
             }
-
             if (cursor.PrimaryPush && !nodeIsGrabbed && cursor.WindowOver is NodeDisplayRuntime nodeDisplay)
             {
                 currentDraggedNode?.RespondToLosingActiveStatus();
@@ -203,7 +205,7 @@ namespace StoryNavigator.Screens
                 //...but it doesn't :(
                 //They are drawn to the NodeLayer, which is set to order by Z, but setting Z on our
                 //NodeDisplayGumRuntime instances does not change their draw order
-                incrementalZ = incrementalZ + float.MinValue;
+                incrementalZ += float.MinValue;
             }
             else if (!cursor.PrimaryButton.IsDown && nodeIsGrabbed == true)
             {
@@ -222,25 +224,32 @@ namespace StoryNavigator.Screens
                 nodeLinkAsIWindow.Y += cursor.ScreenYChange;
             }
 
-            if (cursor.PrimaryPush && !linkIsGrabbed && cursor.WindowOver is NodeLinkRuntime nodeLink)
+            if (cursor.PrimaryPush && !linkIsGrabbed && cursor.WindowOver is ButtonRuntime newLinkButton && newLinkButton.Parent is NodeLinkRuntime newLinkDisplay)
             {
                 //currentDraggedLink?.RespondToLosingActiveStatus();
                 linkIsGrabbed = true;
-                currentDraggedLink = nodeLink;
+                currentDraggedLink = newLinkButton;
                 currentDraggedLink.Z = incrementalZ;
 
-                currentDraggedLink.HandleBeingDragged();
-
-                //TODO
-                //This should ensure objects are always drawn in the order they were last interacted with
-                //...but it doesn't :(
-                //They are drawn to the NodeLayer, which is set to order by Z, but setting Z on our
-                //NodeDisplayGumRuntime instances does not change their draw order
-                incrementalZ = incrementalZ + float.MinValue;
+                newLinkDisplay.HandleBeingDragged();
             }
             else if (!cursor.PrimaryButton.IsDown && linkIsGrabbed)
             {
-                currentDraggedLink?.HandleDraggingStopped();
+                NodeDisplayRuntime nodeLinkIsOver = null;
+                foreach (var node in NodeDisplays)
+                {
+                    if (cursor.IsOnWindowOrFloatingChildren(node as IWindow))
+                        nodeLinkIsOver = node;
+                }
+                if (nodeLinkIsOver != null && currentDraggedLink.Parent is NodeLinkRuntime linkingNode)
+                {
+                    var newLink = new DialogTreeRaw.Link();
+                    newLink.pid = nodeLinkIsOver.NodePassage.pid;
+                    newLink.name = "Link name";
+                    newLink.link = "Link text";
+                    linkingNode.SetPassageLink(newLink);
+                }
+                //currentDraggedLink?.HandleDraggingStopped();
                 linkIsGrabbed = false;
             }
         }

@@ -20,6 +20,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
             PassageLinkNameText = passageLink.name;
             LinkText = passageLink.link;
             PassageLinkNumberText = passageLink.pid.ToString();
+            CurrentConnectionStateState = ConnectionState.DisplayExistingWithEdit;
         }
 
         public void UpdatePassageFromDisplay()
@@ -39,12 +40,12 @@ namespace StoryNavigator.GumRuntimes.Nodes
 
         internal void HandleBeingDragged()
         {
-            //TODO:  Draw a dotted-line from origin
+            CurrentConnectionStateState = ConnectionState.Dragged;
         }
 
         internal void HandleDraggingStopped()
         {
-
+            
             //TODO:  Check for overlap with node
             //and create association if an overlapping one exists
         }
