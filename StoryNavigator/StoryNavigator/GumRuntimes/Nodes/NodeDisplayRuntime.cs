@@ -58,18 +58,24 @@ namespace StoryNavigator.GumRuntimes.Nodes
                     }
                 }
             }
+            UpdateNodePassPositionData();
             NodeLinkContainer.Visible = true;
         }
 
         public void SetPassage(Passage nodePassage)
         {
             this.NodePassage = nodePassage;
-            X = nodePassage.position.x;
-            Y = nodePassage.position.y;
             NodeInfoInstance.PassageNameText = nodePassage.name;
             this.PassageText = nodePassage.text;
 
             NodeInfoInstance.PassagePidText = nodePassage.pid.ToString();
+
+            if (this is IWindow thisAsIWindow)
+            {
+                thisAsIWindow.X = nodePassage.position.x;
+                thisAsIWindow.Y = nodePassage.position.y;
+                thisAsIWindow.UpdateDependencies();
+            }
 
             SetLinks();
         }
@@ -155,6 +161,12 @@ namespace StoryNavigator.GumRuntimes.Nodes
             NodePassage.position.y = pos.y;
 
             UpdatePassageFromDisplay();
+        }
+
+        private void UpdateNodePassPositionData()
+        {
+            NodePassage.position.x = (int)X;
+            NodePassage.position.y = (int)Y;
         }
 
         private void ClearNodeLinks()

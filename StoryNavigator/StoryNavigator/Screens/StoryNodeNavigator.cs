@@ -33,6 +33,7 @@ namespace StoryNavigator.Screens
         private float incrementalZ = 0f;
 
         //Story data properties
+        private string currentDataFileLocation = "StoryData.json";
         private StoryData currentStoryData;
         private bool isStoryLoaded => currentStoryData != null;
 
@@ -65,7 +66,9 @@ namespace StoryNavigator.Screens
 
         private void InitializeTopMenu()
         {
-            TopMenuBar.AddMenuItem("File", HandleFileMenuItemClicked);
+            //TopMenuBar.AddMenuItem("File", HandleFileMenuItemClicked);
+            TopMenuBar.AddMenuItem("Save", HandleSaveMenuItemClicked);
+            TopMenuBar.AddMenuItem("Load", HandleLoadMenuItemClicked);
             TopMenuBar.AddMenuItem("+Node", HandleAddNodeClicked);
             //TODO: More menu buttons
             //Current project settings, view, search, file and replace, node options, etc.
@@ -80,6 +83,17 @@ namespace StoryNavigator.Screens
         {
             //Todo:  Open a vertical menu of New/Load/Save
         }
+        private void HandleSaveMenuItemClicked(IWindow window)
+        {
+            currentStoryData.SaveData(currentDataFileLocation);
+        }
+
+        private void HandleLoadMenuItemClicked(IWindow window)
+        {
+            DestroyAllNodes();
+            currentStoryData.LoadData(currentDataFileLocation);
+            CreateNodeDisplayForEachStoryPassage();
+        }
         private void HandleAddNodeClicked(IWindow window)
         {
             var newPassage = currentStoryData.AddNewPassage();
@@ -91,21 +105,13 @@ namespace StoryNavigator.Screens
         #region Story Create/Load/Save
         private void AttemptLoadLastSavedStoryOrCreateNew()
         {
-            //TODO
-            //LoadStoryLocally();
-            if (!isStoryLoaded)
-            {
-                CreateNewStory();
-            }
-        }
-
-        private void CreateNewStory()
-        {
             DestroyAllNodes();
-
             currentStoryData = new StoryData();
-            //Create initial passage
-            currentStoryData.AddNewPassage();
+
+            if (!currentStoryData.LoadData(currentDataFileLocation))
+            {
+                currentStoryData.AddNewPassage();
+            }
         }
 
         private void CreateNodeDisplayForEachStoryPassage()
