@@ -17,6 +17,15 @@
       <Name>Selected</Name>
     </State>
   </Category>
+  <Category>
+    <Name>LineModeCategory</Name>
+    <State>
+      <Name>Single</Name>
+    </State>
+    <State>
+      <Name>Multi</Name>
+    </State>
+  </Category>
   <RequiredInstances>
     <InstanceSave>
       <Name>TextInstance</Name>

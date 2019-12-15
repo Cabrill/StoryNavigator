@@ -6,8 +6,8 @@ namespace StoryNavigator.GumRuntimes.MenuBars
 {
     public partial class MenuBarBackgroundRuntime
     {
-        partial void CustomInitialize () 
-        {
-        }
+        //partial void CustomInitialize () 
+        //{
+        //}
     }
 }

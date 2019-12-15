@@ -183,7 +183,29 @@ namespace StoryNavigator.Screens
         {
             HandleNodeDraggingActivity();
             HandleLinkDraggingActivity();
+            HandleMiddleMouseDragActivity();
             HandleMouseWheelCameraZoomActivity();
+        }
+
+        private void HandleMiddleMouseDragActivity()
+        {
+            var cursor = GuiManager.Cursor;
+            if (!nodeIsGrabbed && !linkIsGrabbed && cursor.MiddleDown)
+            {
+
+                var gumCamera = RenderingLibrary.SystemManagers.Default.Renderer.Camera;
+                gumCamera.X -= cursor.ScreenXChange;
+                gumCamera.Y -= cursor.ScreenYChange;
+                //Move the TopMenuBar so it stays at the top of the screen
+                //TODO:  Find a way to attach TopMenuBar or GuiLayer to camera
+                TopMenuBar.X -= cursor.ScreenXChange;
+                TopMenuBar.Y -= cursor.ScreenYChange;
+
+            }
+            else
+            {
+
+            }
         }
 
         private void HandleNodeDraggingActivity()
@@ -266,8 +288,11 @@ namespace StoryNavigator.Screens
             //Trying to zoom the nodes when middle-mouse is used
             if (InputManager.Mouse.ScrollWheel.Velocity != 0)
             {
+                
                 var gumCamera = RenderingLibrary.SystemManagers.Default.Renderer.Camera;
-                gumCamera.Zoom += InputManager.Mouse.ScrollWheel.Velocity;
+
+                //This zooms ALL gum layers
+                //gumCamera.Zoom += InputManager.Mouse.ScrollWheel.Velocity;
 
                 //This just makes the screen go black
                 //RenderingLibrary.SystemManagers.Default.Renderer.Camera.Zoom += InputManager.Mouse.ScrollWheel.Value;

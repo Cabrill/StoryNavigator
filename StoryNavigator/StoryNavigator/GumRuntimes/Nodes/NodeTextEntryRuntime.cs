@@ -6,8 +6,8 @@ namespace StoryNavigator.GumRuntimes.Nodes
 {
     public partial class NodeTextEntryRuntime
     {
-        partial void CustomInitialize () 
-        {
-        }
+        //partial void CustomInitialize () 
+        //{
+        //}
     }
 }

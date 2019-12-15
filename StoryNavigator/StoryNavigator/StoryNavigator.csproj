@@ -68,7 +68,6 @@
     </Compile>
     <Compile Include="GlobalConstants\GlobalConstants.cs" />
     <Compile Include="GlobalContent.Generated.cs" />
-    <Compile Include="GlueControl\GlueControlManager.Generated.cs" />
     <Compile Include="GumRuntimes\Behaviors\IButtonBehavior.Generated.cs" />
     <Compile Include="GumRuntimes\Behaviors\ICheckBoxBehavior.Generated.cs" />
     <Compile Include="GumRuntimes\Behaviors\IComboBoxBehavior.Generated.cs" />
@@ -107,13 +106,7 @@
     <Compile Include="GumRuntimes\DefaultForms\UserControlRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\GumIdb.Generated.cs" />
     <Compile Include="GumRuntimes\MenuBars\MenuBarBackgroundRuntime.cs" />
-    <Compile Include="GumRuntimes\MenuBars\MenuBarBackgroundRuntime.Generated.cs">
-      <DependentUpon>MenuBarBackgroundRuntime.cs</DependentUpon>
-    </Compile>
     <Compile Include="GumRuntimes\MenuBars\MenuBarbuttonRowRuntime.cs" />
-    <Compile Include="GumRuntimes\MenuBars\MenuBarbuttonRowRuntime.Generated.cs">
-      <DependentUpon>MenuBarbuttonRowRuntime.cs</DependentUpon>
-    </Compile>
     <Compile Include="GumRuntimes\MenuBars\MenuBarRuntime.cs" />
     <Compile Include="GumRuntimes\MenuBars\MenuBarRuntime.Generated.cs">
       <DependentUpon>MenuBarRuntime.cs</DependentUpon>
@@ -136,9 +129,6 @@
       <DependentUpon>NodeLinkRuntime.cs</DependentUpon>
     </Compile>
     <Compile Include="GumRuntimes\Nodes\NodeTextEntryRuntime.cs" />
-    <Compile Include="GumRuntimes\Nodes\NodeTextEntryRuntime.Generated.cs">
-      <DependentUpon>NodeTextEntryRuntime.cs</DependentUpon>
-    </Compile>
     <Compile Include="GumRuntimes\PolygonRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\RectangleRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\SpriteRuntime.Generated.cs" />
@@ -496,7 +486,9 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="GlueControl\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
