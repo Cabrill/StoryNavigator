@@ -15,7 +15,8 @@ namespace StoryNavigator.GumRuntimes.Nodes
         private NodeDisplayRuntime _parentRunTime;
 
         public Link PassageLink { get; protected set; }
-        
+        public NodeDisplayRuntime ParentNode => _parentRunTime;
+
         #endregion
 
         partial void CustomInitialize () 
@@ -50,35 +51,25 @@ namespace StoryNavigator.GumRuntimes.Nodes
 
         internal void HandleBeingDragged()
         {
-            if (_parentRunTime != null)
-            {
-                CurrentConnectionStateState = ConnectionState.Dragged;
-                Z = 5;
-            }
-#if DEBUG
-            else
-            {
-                throw new NullReferenceException($"{nameof(_parentRunTime)} is null");
-            }
-#endif
+            UnlinkParent();
+            CurrentConnectionStateState = ConnectionState.Dragged;
+            Z = 5;
         }
 
         private void UnlinkParent()
         {
+            _parentRunTime = this.Parent.Parent as NodeDisplayRuntime;
             XPriorToDrag = X;
             YPriorToDrag = Y;
             ZPriorToDrag = Z;
-            _parentRunTime = Parent as NodeDisplayRuntime;
-            Parent.Children.Remove(this);
-            Parent = null;
+            //Parent.Children.Remove(this);
         }
 
         private void ReLinkToFormerParent()
         {
             ResetPositionToParent();
-            _parentRunTime.Children.Add(this);
-            Parent.Children.Add(this);
-            Parent = _parentRunTime;
+            //_parentRunTime.Children.Add(this);
+            //Parent.Children.Add(this);
         }
 
         internal void HandleDraggingStopped()

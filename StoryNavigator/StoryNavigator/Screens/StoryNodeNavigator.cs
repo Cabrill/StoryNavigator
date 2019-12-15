@@ -241,6 +241,7 @@ namespace StoryNavigator.Screens
             }
         }
 
+        #region Link drag/drop activity
         private void HandleLinkDraggingActivity()
         {
             var cursor = GuiManager.Cursor;
@@ -251,36 +252,44 @@ namespace StoryNavigator.Screens
                 nodeLinkAsIWindow.Y += cursor.ScreenYChange;
             }
 
-            if (cursor.PrimaryPush && !linkIsGrabbed && cursor.WindowOver is ButtonRuntime newLinkButton && newLinkButton.Parent is NodeLinkRuntime newLinkDisplay)
+            if (cursor.PrimaryPush && !linkIsGrabbed)
             {
-                currentDraggedLinkAsButtonRunTime = newLinkButton;
-                currentDraggedLinkAsButtonRunTime.Z = incrementalZ;
+                if (cursor.WindowOver is ButtonRuntime newLinkButton && newLinkButton.Parent is NodeLinkRuntime newLinkDisplay)
+                {
+                    currentDraggedLinkAsButtonRunTime = newLinkButton;
+                    currentDraggedLinkAsButtonRunTime.Z = incrementalZ;
 
-                newLinkDisplay.HandleBeingDragged();
+                    newLinkDisplay.HandleBeingDragged();
+                }
             }
             else if (!cursor.PrimaryButton.IsDown && linkIsGrabbed)
             {
-                NodeDisplayRuntime nodeLinkIsOver = null;
-                foreach (var node in NodeDisplays)
-                {
-                    if (cursor.IsOnWindowOrFloatingChildren(node as IWindow))
-                        nodeLinkIsOver = node;
-                }
-                if (nodeLinkIsOver != null && currentDraggedLinkAsButtonRunTime.Parent is NodeLinkRuntime linkingNode)
-                {
-                    if (linkingNode.Parent.Parent is NodeDisplayRuntime parentNode)
-                    {
-                        parentNode.HandleLinkEstablishedWithNode(nodeLinkIsOver, linkingNode);
-                    }
-                }
-                else if (currentDraggedLinkAsButtonRunTime.Parent is NodeLinkRuntime unlinkedNode)
-                {
-                    unlinkedNode.HandleDraggingStopped();
-                }
-                currentDraggedLinkAsButtonRunTime = null;
-                //currentDraggedLink?.HandleDraggingStopped();
+                HandleDraggedLinkIsDropped();
             }
         }
+
+        private void HandleDraggedLinkIsDropped()
+        {
+            var cursor = GuiManager.Cursor;
+            NodeDisplayRuntime nodeLinkIsOver = null;
+
+            foreach (var node in NodeDisplays)
+            {
+                if (cursor.IsOnWindowOrFloatingChildren(node as IWindow))
+                    nodeLinkIsOver = node;
+            }
+            if (nodeLinkIsOver != null && currentDraggedLinkAsButtonRunTime.Parent is NodeLinkRuntime linkingNode)
+            {
+                linkingNode.ParentNode?.HandleLinkEstablishedWithNode(nodeLinkIsOver, linkingNode);
+            }
+            else if (currentDraggedLinkAsButtonRunTime.Parent is NodeLinkRuntime unlinkedNode)
+            {
+                unlinkedNode.HandleDraggingStopped();
+            }
+            currentDraggedLinkAsButtonRunTime = null;
+            //currentDraggedLink?.HandleDraggingStopped();
+        }
+        #endregion
 
         private void HandleMouseWheelCameraZoomActivity()
         {
