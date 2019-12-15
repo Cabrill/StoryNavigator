@@ -1,3 +1,4 @@
+using Gum.Wireframe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
 
         public Link PassageLink { get; protected set; }
         public NodeDisplayRuntime ParentNode => _parentRunTime;
+        public GraphicalUiElement ParentContainer;
 
         #endregion
 
@@ -59,17 +61,25 @@ namespace StoryNavigator.GumRuntimes.Nodes
         private void UnlinkParent()
         {
             _parentRunTime = this.Parent.Parent as NodeDisplayRuntime;
-            XPriorToDrag = X;
-            YPriorToDrag = Y;
-            ZPriorToDrag = Z;
-            //Parent.Children.Remove(this);
+            XPriorToDrag = this.AbsoluteX;
+            YPriorToDrag = this.AbsoluteY;
+            ZPriorToDrag = this.Z;
+            ParentContainer = Parent as GraphicalUiElement;
+            Parent.Children.Remove(this);
+            Parent = null;
+            AddToManagers();
+            ResetToAbsolutePositionPriorBeginDragging();
         }
 
         private void ReLinkToFormerParent()
         {
-            ResetPositionToParent();
-            //_parentRunTime.Children.Add(this);
-            //Parent.Children.Add(this);
+            RemoveFromManagers();
+            _parentRunTime.Children.Add(this);
+            ParentContainer.Children.Add(this);
+            Parent = ParentContainer;
+            this.X = 0;
+            this.Y = 0;
+            this.Z = 0;
         }
 
         internal void HandleDraggingStopped()
@@ -86,7 +96,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
 #endif
         }
 
-        private void ResetPositionToParent()
+        private void ResetToAbsolutePositionPriorBeginDragging()
         {
             X = XPriorToDrag;
             Y = YPriorToDrag;

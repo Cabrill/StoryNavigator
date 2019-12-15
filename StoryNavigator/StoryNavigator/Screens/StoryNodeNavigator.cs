@@ -254,7 +254,8 @@ namespace StoryNavigator.Screens
 
             if (cursor.PrimaryPush && !linkIsGrabbed)
             {
-                if (cursor.WindowOver is ButtonRuntime newLinkButton && newLinkButton.Parent is NodeLinkRuntime newLinkDisplay)
+                if (cursor.WindowOver is ButtonRuntime newLinkButton 
+                && newLinkButton.Parent is NodeLinkRuntime newLinkDisplay)
                 {
                     currentDraggedLinkAsButtonRunTime = newLinkButton;
                     currentDraggedLinkAsButtonRunTime.Z = incrementalZ;
