@@ -28,8 +28,8 @@ namespace StoryNavigator.Screens
 
         #region Properties
         //Screen-specific properties
-        private bool nodeIsGrabbed = false;
-        private bool linkIsGrabbed = false;
+        private bool nodeIsGrabbed => currentDraggedNode != null;
+        private bool linkIsGrabbed => currentDraggedLinkAsButtonRunTime != null;
         private float incrementalZ = 0f;
 
         //Story data properties
@@ -40,7 +40,7 @@ namespace StoryNavigator.Screens
         //Node properties
         private List<NodeDisplayRuntime> NodeDisplays = new List<NodeDisplayRuntime>();
         NodeDisplayRuntime currentDraggedNode;
-        ButtonRuntime currentDraggedLink;
+        ButtonRuntime currentDraggedLinkAsButtonRunTime;
         #endregion
 
         #region Initialize
@@ -219,11 +219,10 @@ namespace StoryNavigator.Screens
                 nodeWindow.X += cursor.ScreenXChange;
                 nodeWindow.Y += cursor.ScreenYChange;
             }
-            if (cursor.PrimaryPush && !nodeIsGrabbed && cursor.WindowOver is NodeDisplayRuntime nodeDisplay)
+            if (cursor.PrimaryPush && !nodeIsGrabbed && cursor.WindowOver is NodeDisplayRuntime nodeDisplayWithCursorOverIt)
             {
                 currentDraggedNode?.RespondToLosingActiveStatus();
-                nodeIsGrabbed = true;
-                currentDraggedNode = nodeDisplay;
+                currentDraggedNode = nodeDisplayWithCursorOverIt;
                 currentDraggedNode.Z = incrementalZ;
 
                 currentDraggedNode.HandleBeingDragged();
@@ -238,7 +237,7 @@ namespace StoryNavigator.Screens
             else if (!cursor.PrimaryButton.IsDown && nodeIsGrabbed == true)
             {
                 currentDraggedNode?.HandleDraggingStopped();
-                nodeIsGrabbed = false;
+                currentDraggedNode = null;
             }
         }
 
@@ -246,7 +245,7 @@ namespace StoryNavigator.Screens
         {
             var cursor = GuiManager.Cursor;
 
-            if (linkIsGrabbed && currentDraggedLink is IWindow nodeLinkAsIWindow)
+            if (linkIsGrabbed && currentDraggedLinkAsButtonRunTime is IWindow nodeLinkAsIWindow)
             {
                 nodeLinkAsIWindow.X += cursor.ScreenXChange;
                 nodeLinkAsIWindow.Y += cursor.ScreenYChange;
@@ -254,10 +253,8 @@ namespace StoryNavigator.Screens
 
             if (cursor.PrimaryPush && !linkIsGrabbed && cursor.WindowOver is ButtonRuntime newLinkButton && newLinkButton.Parent is NodeLinkRuntime newLinkDisplay)
             {
-                //currentDraggedLink?.RespondToLosingActiveStatus();
-                linkIsGrabbed = true;
-                currentDraggedLink = newLinkButton;
-                currentDraggedLink.Z = incrementalZ;
+                currentDraggedLinkAsButtonRunTime = newLinkButton;
+                currentDraggedLinkAsButtonRunTime.Z = incrementalZ;
 
                 newLinkDisplay.HandleBeingDragged();
             }
@@ -269,16 +266,19 @@ namespace StoryNavigator.Screens
                     if (cursor.IsOnWindowOrFloatingChildren(node as IWindow))
                         nodeLinkIsOver = node;
                 }
-                if (nodeLinkIsOver != null && currentDraggedLink.Parent is NodeLinkRuntime linkingNode)
+                if (nodeLinkIsOver != null && currentDraggedLinkAsButtonRunTime.Parent is NodeLinkRuntime linkingNode)
                 {
-                    var newLink = new DialogTreeRaw.Link();
-                    newLink.pid = nodeLinkIsOver.NodePassage.pid;
-                    newLink.name = "Link name";
-                    newLink.link = "Link text";
-                    linkingNode.SetPassageLink(newLink);
+                    if (linkingNode.Parent.Parent is NodeDisplayRuntime parentNode)
+                    {
+                        parentNode.HandleLinkEstablishedWithNode(nodeLinkIsOver, linkingNode);
+                    }
                 }
+                else if (currentDraggedLinkAsButtonRunTime.Parent is NodeLinkRuntime unlinkedNode)
+                {
+                    unlinkedNode.HandleDraggingStopped();
+                }
+                currentDraggedLinkAsButtonRunTime = null;
                 //currentDraggedLink?.HandleDraggingStopped();
-                linkIsGrabbed = false;
             }
         }
 

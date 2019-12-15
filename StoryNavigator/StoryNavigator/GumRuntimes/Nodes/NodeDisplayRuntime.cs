@@ -1,4 +1,5 @@
 using FlatRedBall.Gui;
+using StoryNavigator.DataTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -171,7 +172,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
         private void ClearNodeLinks()
         {
             var linkCount = NodeLinkContainer.Children.Count();
-            for (var i = 0; i < linkCount; i++)
+            for (var i = linkCount-1; i >= 0; i--)
             {
                 var nodeLink = NodeLinkContainer.Children[i] as NodeLinkRuntime;
                 NodeLinkContainer.Children.Remove(nodeLink);
@@ -183,6 +184,29 @@ namespace StoryNavigator.GumRuntimes.Nodes
         public void CustomDispose()
         {
             ClearNodeLinks();
+        }
+
+        internal void HandleLinkEstablishedWithNode(NodeDisplayRuntime nodeLinkIsOver, NodeLinkRuntime nodeLink)
+        {
+            if (NodePassage != null)
+            {
+                nodeLink.HandleDraggingStopped();
+
+                var newLink = new DialogTreeRaw.Link();
+                newLink.pid = nodeLinkIsOver.NodePassage.pid;
+                newLink.name = $"Link to {newLink.pid }";
+                newLink.link = "Link text";
+
+                var currentLinks = NodePassage.links.ToList();
+                currentLinks.Add(newLink);
+                NodePassage.links = currentLinks.ToArray();
+
+                nodeLink.SetPassageLink(newLink);
+                
+
+                //Create a new +Link button to this node
+                CreateAddNewLinkButton();
+            }
         }
     }
 }

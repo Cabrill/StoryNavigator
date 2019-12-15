@@ -7,7 +7,17 @@ namespace StoryNavigator.GumRuntimes.Nodes
 {
     public partial class NodeLinkRuntime
     {
+        #region Properties
+        //Used in detaching from parent display during drag event
+        private float XPriorToDrag = 0f;
+        private float YPriorToDrag = 0f;
+        private float ZPriorToDrag = 0f;
+        private NodeDisplayRuntime _parentRunTime;
+
         public Link PassageLink { get; protected set; }
+        
+        #endregion
+
         partial void CustomInitialize () 
         {
 
@@ -40,14 +50,56 @@ namespace StoryNavigator.GumRuntimes.Nodes
 
         internal void HandleBeingDragged()
         {
-            CurrentConnectionStateState = ConnectionState.Dragged;
+            if (_parentRunTime != null)
+            {
+                CurrentConnectionStateState = ConnectionState.Dragged;
+                Z = 5;
+            }
+#if DEBUG
+            else
+            {
+                throw new NullReferenceException($"{nameof(_parentRunTime)} is null");
+            }
+#endif
+        }
+
+        private void UnlinkParent()
+        {
+            XPriorToDrag = X;
+            YPriorToDrag = Y;
+            ZPriorToDrag = Z;
+            _parentRunTime = Parent as NodeDisplayRuntime;
+            Parent.Children.Remove(this);
+            Parent = null;
+        }
+
+        private void ReLinkToFormerParent()
+        {
+            ResetPositionToParent();
+            _parentRunTime.Children.Add(this);
+            Parent.Children.Add(this);
+            Parent = _parentRunTime;
         }
 
         internal void HandleDraggingStopped()
         {
-            
-            //TODO:  Check for overlap with node
-            //and create association if an overlapping one exists
+            if (_parentRunTime != null)
+            {
+                ReLinkToFormerParent();
+            }
+#if DEBUG
+            else
+            {
+                throw new NullReferenceException($"{nameof(_parentRunTime)} is null");
+            }
+#endif
+        }
+
+        private void ResetPositionToParent()
+        {
+            X = XPriorToDrag;
+            Y = YPriorToDrag;
+            Z = ZPriorToDrag;
         }
     }
 }
