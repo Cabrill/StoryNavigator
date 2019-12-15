@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="GlobalConstants\GlobalConstants.cs" />
     <Compile Include="GlobalContent.Generated.cs" />
+    <Compile Include="GlueControl\GlueControlManager.Generated.cs" />
     <Compile Include="GumRuntimes\Behaviors\IButtonBehavior.Generated.cs" />
     <Compile Include="GumRuntimes\Behaviors\ICheckBoxBehavior.Generated.cs" />
     <Compile Include="GumRuntimes\Behaviors\IComboBoxBehavior.Generated.cs" />

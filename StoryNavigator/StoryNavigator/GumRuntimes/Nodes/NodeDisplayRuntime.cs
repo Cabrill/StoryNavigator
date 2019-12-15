@@ -13,7 +13,6 @@ namespace StoryNavigator.GumRuntimes.Nodes
 
         public Passage NodePassage { get; protected set; }
 
-        
         partial void CustomInitialize () 
         {
             
@@ -179,6 +178,11 @@ namespace StoryNavigator.GumRuntimes.Nodes
                 NodeLinkContainer.RemoveFromManagers();
                 nodeLink.Destroy();
             }
+        }
+
+        public void CustomDispose()
+        {
+            ClearNodeLinks();
         }
     }
 }

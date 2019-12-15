@@ -310,6 +310,7 @@ namespace StoryNavigator.Screens
             {
                 for (var i = 0; i < nodeCount; i++)
                 {
+                    NodeDisplays[i].CustomDispose();
                     NodeDisplays[i].RemoveFromManagers();
                     NodeDisplays[i].Destroy();
                 }
