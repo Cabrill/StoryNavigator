@@ -45,6 +45,8 @@ namespace StoryNavigator.Screens
 
         //Splines for links between nodes
         private List<Spline> SplinesForNodeLinks = new List<Spline>();
+
+        List<global::RenderingLibrary.Math.Geometry.Line> lines = new List<RenderingLibrary.Math.Geometry.Line>();
         #endregion
 
         #region Initialize
@@ -129,7 +131,7 @@ namespace StoryNavigator.Screens
 
                 NodeDisplays.Add(newNode);
             }
-            //CreateSplinesForAllNodeLinks();
+            CreateSplinesForAllNodeLinks();
         }
 
         private void CreateSplinesForAllNodeLinks()
@@ -139,8 +141,10 @@ namespace StoryNavigator.Screens
             {
                 foreach (var link in node.NodeLinks)
                 {
-                    var newSpline = CreateASplineBetweenNodes(link, node);
-                    SplinesForNodeLinks.Add(newSpline);
+                    //var newSpline = CreateASplineBetweenNodes(link, node);
+                    var newSpline = CreateALineBetweenNodes(link, node);
+                    //SplinesForNodeLinks.Add(newSpline);
+                    lines.Add(newSpline);
                 }
             }
         }
@@ -174,19 +178,34 @@ namespace StoryNavigator.Screens
             return pos;
         }
 
-        private Spline CreateASplineBetweenNodes(NodeLinkRuntime linkOrigin, NodeDisplayRuntime nodeDestination)
+        //private Spline CreateASplineBetweenNodes(NodeLinkRuntime linkOrigin, NodeDisplayRuntime nodeDestination)
+        //{
+        //    var nodeLinkToNodeSpline = new Spline();
+
+        //    nodeLinkToNodeSpline.Add(linkOrigin.LinkSplineStartPosition);
+        //    nodeLinkToNodeSpline.Add(nodeDestination.NodeSplineEndPosition);
+        //    nodeLinkToNodeSpline.CalculateVelocities();
+        //    nodeLinkToNodeSpline.CalculateAccelerations();
+        //    nodeLinkToNodeSpline.Visible = true;
+
+        //    SplinesForNodeLinks.Add(nodeLinkToNodeSpline);
+
+        //    return nodeLinkToNodeSpline;
+        //}
+
+        private RenderingLibrary.Math.Geometry.Line CreateALineBetweenNodes(NodeLinkRuntime linkOrigin, NodeDisplayRuntime nodeDestination)
         {
-            var nodeLinkToNodeSpline = new Spline();
+            var line = new RenderingLibrary.Math.Geometry.Line(RenderingLibrary.SystemManagers.Default);
+            RenderingLibrary.SystemManagers.Default.ShapeManager.Add(line);
+            line.X = linkOrigin.LinkSplineStartPosition.Position.X;
+            line.Y = linkOrigin.LinkSplineStartPosition.Position.Y;
 
-            nodeLinkToNodeSpline.Add(linkOrigin.LinkSplineStartPosition);
-            nodeLinkToNodeSpline.Add(nodeDestination.NodeSplineEndPosition);
-            nodeLinkToNodeSpline.CalculateVelocities();
-            nodeLinkToNodeSpline.CalculateAccelerations();
-            nodeLinkToNodeSpline.Visible = true;
+            var relativeDifference =
+                nodeDestination.NodeSplineEndPosition.Position - linkOrigin.LinkSplineStartPosition.Position;
+            line.RelativePoint.X = relativeDifference.X;
+            line.RelativePoint.Y = relativeDifference.Y;
 
-            SplinesForNodeLinks.Add(nodeLinkToNodeSpline);
-
-            return nodeLinkToNodeSpline;
+            return line;
         }
 
         #endregion
@@ -316,8 +335,8 @@ namespace StoryNavigator.Screens
             if (nodeLinkIsOver != null && currentDraggedLinkAsButtonRunTime.Parent is NodeLinkRuntime linkingNode)
             {
                 linkingNode.ParentNode?.HandleLinkEstablishedWithNode(nodeLinkIsOver, linkingNode);
-                var newSpline =  CreateASplineBetweenNodes(linkingNode, nodeLinkIsOver);
-                SplinesForNodeLinks.Add(newSpline);
+                var newLine =  CreateALineBetweenNodes(linkingNode, nodeLinkIsOver);
+                lines.Add(newLine);
             }
             else if (currentDraggedLinkAsButtonRunTime.Parent is NodeLinkRuntime unlinkedNode)
             {
