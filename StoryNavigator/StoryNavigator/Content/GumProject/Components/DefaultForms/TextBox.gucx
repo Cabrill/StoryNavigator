@@ -125,6 +125,11 @@
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
+      <Type>LineModeCategoryState</Type>
+      <Name>LineModeCategoryState</Name>
+      <SetsValue>false</SetsValue>
+    </Variable>
+    <Variable>
       <Type>ColorCategoryState</Type>
       <Name>SelectionInstance.ColorCategoryState</Name>
       <Value xsi:type="xsd:string">Blue</Value>
@@ -274,6 +279,15 @@
     </State>
     <State>
       <Name>Selected</Name>
+    </State>
+  </Category>
+  <Category>
+    <Name>LineModeCategory</Name>
+    <State>
+      <Name>Single</Name>
+    </State>
+    <State>
+      <Name>Multi</Name>
     </State>
   </Category>
   <Instance>

@@ -148,20 +148,26 @@
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
-      <Type>ConnectionStateState</Type>
-      <Name>NodeLinkInstance.ConnectionStateState</Name>
-      <Value xsi:type="xsd:string">Add</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>string</Type>
-      <Name>NodeLinkInstance.Parent</Name>
-      <Value xsi:type="xsd:string">NodeLinkContainer</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
       <Type>State</Type>
       <Name>State</Name>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>float</Type>
+      <Name>TextBoxInstance.Height</Name>
+      <Value xsi:type="xsd:float">200</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>DimensionUnitType</Type>
+      <Name>TextBoxInstance.Height Units</Name>
+      <Value xsi:type="xsd:int">0</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>LineModeCategoryState</Type>
+      <Name>TextBoxInstance.LineModeCategoryState</Name>
+      <Value xsi:type="xsd:string">Multi</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -173,32 +179,26 @@
     <Variable>
       <Type>string</Type>
       <Name>TextBoxInstance.Text</Name>
-      <Value xsi:type="xsd:string">Node description</Value>
+      <Value xsi:type="xsd:string">This a test of multi-line entry.</Value>
       <ExposedAsName>PassageText</ExposedAsName>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>float</Type>
       <Name>TextBoxInstance.Width</Name>
-      <Value xsi:type="xsd:float">100</Value>
+      <Value xsi:type="xsd:float">150</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
       <Type>DimensionUnitType</Type>
       <Name>TextBoxInstance.Width Units</Name>
-      <Value xsi:type="xsd:int">1</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>float</Type>
-      <Name>TextBoxInstance.Y</Name>
-      <Value xsi:type="xsd:float">0</Value>
-      <SetsValue>true</SetsValue>
-    </Variable>
-    <Variable>
-      <Type>VerticalAlignment</Type>
-      <Name>TextBoxInstance.Y Origin</Name>
       <Value xsi:type="xsd:int">0</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
+    <Variable>
+      <Type>bool</Type>
+      <Name>TextBoxInstance.Wraps Children</Name>
+      <Value xsi:type="xsd:boolean">true</Value>
       <SetsValue>true</SetsValue>
     </Variable>
     <Variable>
@@ -219,11 +219,6 @@
     <DefinedByBase>false</DefinedByBase>
   </Instance>
   <Instance>
-    <Name>TextBoxInstance</Name>
-    <BaseType>DefaultForms/TextBox</BaseType>
-    <DefinedByBase>false</DefinedByBase>
-  </Instance>
-  <Instance>
     <Name>InfoContainer</Name>
     <BaseType>Container</BaseType>
     <DefinedByBase>false</DefinedByBase>
@@ -234,8 +229,8 @@
     <DefinedByBase>false</DefinedByBase>
   </Instance>
   <Instance>
-    <Name>NodeLinkInstance</Name>
-    <BaseType>Nodes/NodeLink</BaseType>
+    <Name>TextBoxInstance</Name>
+    <BaseType>DefaultForms/TextBox</BaseType>
     <DefinedByBase>false</DefinedByBase>
   </Instance>
   <Behaviors />

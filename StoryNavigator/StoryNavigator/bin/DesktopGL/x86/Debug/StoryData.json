@@ -3,6 +3,7 @@
   <RootObject>
     <passages>
       <Passage>
+        <text>I added this to see what would happen</text>
         <links />
         <name>Passage #1 name</name>
         <pid>1</pid>
@@ -12,6 +13,7 @@
         </position>
       </Passage>
       <Passage>
+        <text>Multi-line maybe but auto-stretching?  No.</text>
         <links />
         <name>Passage #2 name</name>
         <pid>2</pid>
@@ -21,11 +23,12 @@
         </position>
       </Passage>
       <Passage>
+        <text>This should be wrapping, but it is not.</text>
         <links />
         <name>Passage #3 name</name>
         <pid>3</pid>
         <position>
-          <x>108</x>
+          <x>109</x>
           <y>405</y>
         </position>
       </Passage>

@@ -17,6 +17,7 @@ using StoryNavigator.DataTypes;
 using static StoryNavigator.DataTypes.DialogTreeRaw;
 using StoryNavigator.Entities;
 using StoryNavigator.GumRuntimes.DefaultForms;
+using FlatRedBall.Math.Splines;
 
 namespace StoryNavigator.Screens
 {
@@ -41,6 +42,9 @@ namespace StoryNavigator.Screens
         private List<NodeDisplayRuntime> NodeDisplays = new List<NodeDisplayRuntime>();
         NodeDisplayRuntime currentDraggedNode;
         ButtonRuntime currentDraggedLinkAsButtonRunTime;
+
+        //Splines for links between nodes
+        private List<Spline> SplinesForNodeLinks = new List<Spline>();
         #endregion
 
         #region Initialize
@@ -73,7 +77,7 @@ namespace StoryNavigator.Screens
             //TODO: More menu buttons
             //Current project settings, view, search, file and replace, node options, etc.
 
-            TopMenuBar.AddMenuItem("Exit", (IWindow notUsed) => { FlatRedBallServices.Game.Exit(); }, shouldRightAlign:true);
+            TopMenuBar.AddMenuItem("Exit", (IWindow notUsed) => { FlatRedBallServices.Game.Exit(); }, shouldRightAlign: true);
         }
 
         #endregion
@@ -120,9 +124,24 @@ namespace StoryNavigator.Screens
             {
                 var newNode = new NodeDisplayRuntime();
                 newNode.SetPassage(passage);
-                NodeDisplays.Add(newNode);
                 newNode.AddToManagers();
                 newNode.MoveToFrbLayer(NodeLayer, NodeLayerGum);
+
+                NodeDisplays.Add(newNode);
+            }
+            //CreateSplinesForAllNodeLinks();
+        }
+
+        private void CreateSplinesForAllNodeLinks()
+        {
+
+            foreach (var node in NodeDisplays)
+            {
+                foreach (var link in node.NodeLinks)
+                {
+                    var newSpline = CreateASplineBetweenNodes(link, node);
+                    SplinesForNodeLinks.Add(newSpline);
+                }
             }
         }
 
@@ -145,14 +164,29 @@ namespace StoryNavigator.Screens
         private Position GetSuitablePositionForNewNode()
         {
             var pos = new Position();
-            pos.x = 300;
-            pos.y = 300;
+            pos.x = 300 + (int)FlatRedBallServices.Random.Between(-100, 100);
+            pos.y = 300 + (int)FlatRedBallServices.Random.Between(-100, 100);
 
             //TODO:  Algorithm to find space for node on current display
             //given current camera/nodes, and return best position
             //TODO+ handle camera move/zoom if no space present
 
             return pos;
+        }
+
+        private Spline CreateASplineBetweenNodes(NodeLinkRuntime linkOrigin, NodeDisplayRuntime nodeDestination)
+        {
+            var nodeLinkToNodeSpline = new Spline();
+
+            nodeLinkToNodeSpline.Add(linkOrigin.LinkSplineStartPosition);
+            nodeLinkToNodeSpline.Add(nodeDestination.NodeSplineEndPosition);
+            nodeLinkToNodeSpline.CalculateVelocities();
+            nodeLinkToNodeSpline.CalculateAccelerations();
+            nodeLinkToNodeSpline.Visible = true;
+
+            SplinesForNodeLinks.Add(nodeLinkToNodeSpline);
+
+            return nodeLinkToNodeSpline;
         }
 
         #endregion
@@ -282,6 +316,8 @@ namespace StoryNavigator.Screens
             if (nodeLinkIsOver != null && currentDraggedLinkAsButtonRunTime.Parent is NodeLinkRuntime linkingNode)
             {
                 linkingNode.ParentNode?.HandleLinkEstablishedWithNode(nodeLinkIsOver, linkingNode);
+                var newSpline =  CreateASplineBetweenNodes(linkingNode, nodeLinkIsOver);
+                SplinesForNodeLinks.Add(newSpline);
             }
             else if (currentDraggedLinkAsButtonRunTime.Parent is NodeLinkRuntime unlinkedNode)
             {
@@ -325,7 +361,16 @@ namespace StoryNavigator.Screens
                     NodeDisplays[i].Destroy();
                 }
             }
-            
+
+            var splineCount = SplinesForNodeLinks?.Count();
+            if (splineCount > 0)
+            {
+                for (var i = 0; i < splineCount; i++)
+                {
+                    //No need to remove?
+                }
+            }
+
         }
         void CustomDestroy()
         {

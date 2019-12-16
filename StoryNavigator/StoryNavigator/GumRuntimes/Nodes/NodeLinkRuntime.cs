@@ -1,7 +1,9 @@
+using FlatRedBall.Math.Splines;
 using Gum.Wireframe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using static StoryNavigator.DataTypes.DialogTreeRaw;
 
 namespace StoryNavigator.GumRuntimes.Nodes
@@ -18,6 +20,18 @@ namespace StoryNavigator.GumRuntimes.Nodes
         public Link PassageLink { get; protected set; }
         public NodeDisplayRuntime ParentNode => _parentRunTime;
         public GraphicalUiElement ParentContainer;
+
+        public SplinePoint LinkSplineStartPosition {
+            get 
+            {
+                //var thisAsGraphicalUiElement = this as GraphicalUiElement;
+                var splinePoint = new SplinePoint();
+                splinePoint.Position.X = WorldUnitX + Width;
+                splinePoint.Position.Y = WorldUnitY - Height/2;
+                return splinePoint;
+            }
+        
+        }
 
         #endregion
 

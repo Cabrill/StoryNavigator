@@ -1,8 +1,11 @@
 using FlatRedBall.Gui;
+using FlatRedBall.Math.Splines;
+using Gum.Wireframe;
 using StoryNavigator.DataTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using static StoryNavigator.DataTypes.DialogTreeRaw;
 
 namespace StoryNavigator.GumRuntimes.Nodes
@@ -12,11 +15,35 @@ namespace StoryNavigator.GumRuntimes.Nodes
         public static FlatRedBall.Graphics.Layer FrbLayer;
         public static RenderingLibrary.Graphics.Layer GumLayer;
 
+        public List<NodeLinkRuntime> NodeLinks = new List<NodeLinkRuntime>();
+
         public Passage NodePassage { get; protected set; }
+        public SplinePoint NodeSplineEndPosition {
+            get {
+                //var thisAsGraphicalUiElement = this as GraphicalUiElement;
+                var splinePoint = new SplinePoint();
+                splinePoint.Position.X = WorldUnitX;
+                splinePoint.Position.Y = WorldUnitY - Height/2;
+
+                splinePoint.Time = 1;
+
+                return splinePoint;
+            }
+        }
 
         partial void CustomInitialize () 
         {
-            
+            this.TextBoxInstance.CurrentLineModeCategoryState = DefaultForms.TextBoxRuntime.LineModeCategory.Multi;
+            TextBoxInstance.FormsControl.TextWrapping = FlatRedBall.Forms.TextWrapping.Wrap;
+            TextBoxInstance.FormsControl.TextChanged += FormsControl_TextChanged;
+        }
+
+        private void FormsControl_TextChanged(object sender, EventArgs e)
+        {
+            //TODO
+            //if (validation) {
+            this.NodePassage.text = TextBoxInstance.Text;
+            //}
         }
 
         public void HandleBeingDragged()
@@ -65,8 +92,9 @@ namespace StoryNavigator.GumRuntimes.Nodes
         public void SetPassage(Passage nodePassage)
         {
             this.NodePassage = nodePassage;
-            NodeInfoInstance.PassageNameText = nodePassage.name;
+
             this.PassageText = nodePassage.text;
+            NodeInfoInstance.PassageNameText = nodePassage.name;
 
             NodeInfoInstance.PassagePidText = nodePassage.pid.ToString();
 
@@ -100,6 +128,8 @@ namespace StoryNavigator.GumRuntimes.Nodes
             linkDisplay.MoveToFrbLayer(FrbLayer, GumLayer);
             linkDisplay.AddToManagers();
             NodeLinkContainer.Children.Add(linkDisplay);
+
+            NodeLinks.Add(linkDisplay);
         }
 
 
@@ -111,6 +141,8 @@ namespace StoryNavigator.GumRuntimes.Nodes
             linkDisplay.MoveToFrbLayer(FrbLayer, GumLayer);
             linkDisplay.AddToManagers();
             NodeLinkContainer.Children.Add(linkDisplay);
+
+            NodeLinks.Add(linkDisplay);
         }
 
         private void LinkDisplay_OpenLinkButtonClick(IWindow window)
@@ -171,10 +203,10 @@ namespace StoryNavigator.GumRuntimes.Nodes
 
         private void ClearNodeLinks()
         {
-            var linkCount = NodeLinkContainer.Children.Count();
+            var linkCount = NodeLinks.Count();
             for (var i = linkCount-1; i >= 0; i--)
             {
-                var nodeLink = NodeLinkContainer.Children[i] as NodeLinkRuntime;
+                var nodeLink = NodeLinks[i] as NodeLinkRuntime;
                 NodeLinkContainer.Children.Remove(nodeLink);
                 NodeLinkContainer.RemoveFromManagers();
                 nodeLink.Destroy();
