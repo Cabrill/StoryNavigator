@@ -1,7 +1,9 @@
 using FlatRedBall.Gui;
 using FlatRedBall.Math.Splines;
 using Gum.Wireframe;
+using RenderingLibrary;
 using StoryNavigator.DataTypes;
+using StoryNavigator.UtilityClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +20,13 @@ namespace StoryNavigator.GumRuntimes.Nodes
         public List<NodeLinkRuntime> NodeLinks = new List<NodeLinkRuntime>();
 
         public Passage NodePassage { get; protected set; }
+        public int Pid => NodePassage.pid;
         public SplinePoint NodeSplineEndPosition {
             get {
-                //var thisAsGraphicalUiElement = this as GraphicalUiElement;
+                var thisAsIpso = this as IPositionedSizedObject;
                 var splinePoint = new SplinePoint();
                 splinePoint.Position.X = WorldUnitX;
-                splinePoint.Position.Y = WorldUnitY - Height/2;
+                splinePoint.Position.Y = WorldUnitY + thisAsIpso.Height / 2;
 
                 splinePoint.Time = 1;
 
@@ -49,6 +52,19 @@ namespace StoryNavigator.GumRuntimes.Nodes
         public void HandleBeingDragged()
         {
             NodeLinkContainer.Visible = false;
+
+            foreach (var link in NodeLinks)
+            {
+                if (link.LineToDestinationNode != null)
+                    link.UpdateLine();
+            }
+
+            //Update lines drawn for links to this node
+            var linksToThisNode = Container.Get<Finder>().GetLinksToThisNodePid(Pid);
+            foreach (var link in linksToThisNode)
+            {
+                link.UpdateLine();
+            }
         }
 
         public void RespondToLosingActiveStatus()
@@ -71,6 +87,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
 
         public void HandleDraggingStopped()
         {
+            NodeLinkContainer.Visible = true;
             foreach (var linkDisplay in NodeLinkContainer.Children)
             {
                 if (linkDisplay is NodeLinkRuntime nodeLinkDisplay)
@@ -83,10 +100,13 @@ namespace StoryNavigator.GumRuntimes.Nodes
                     {
                         nodeLinkDisplay.CurrentConnectionStateState = NodeLinkRuntime.ConnectionState.DisplayExistingWithEdit;
                     }
+
+                    if (nodeLinkDisplay.LineToDestinationNode != null)
+                        nodeLinkDisplay.UpdateLine();
                 }
             }
             UpdateNodePassPositionData();
-            NodeLinkContainer.Visible = true;
+            
         }
 
         public void SetPassage(Passage nodePassage)
@@ -234,7 +254,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
                 NodePassage.links = currentLinks.ToArray();
 
                 nodeLink.SetPassageLink(newLink);
-                
+                nodeLink.SetLinkedNode(nodeLinkIsOver);
 
                 //Create a new +Link button to this node
                 CreateAddNewLinkButton();

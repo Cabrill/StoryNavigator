@@ -18,6 +18,7 @@ using static StoryNavigator.DataTypes.DialogTreeRaw;
 using StoryNavigator.Entities;
 using StoryNavigator.GumRuntimes.DefaultForms;
 using FlatRedBall.Math.Splines;
+using StoryNavigator.UtilityClasses;
 
 namespace StoryNavigator.Screens
 {
@@ -30,7 +31,7 @@ namespace StoryNavigator.Screens
         #region Properties
         //Screen-specific properties
         private bool nodeIsGrabbed => currentDraggedNode != null;
-        private bool linkIsGrabbed => currentDraggedLinkAsButtonRunTime != null;
+        private bool linkIsGrabbed => currentDraggedLink != null;
         private float incrementalZ = 0f;
 
         //Story data properties
@@ -41,12 +42,13 @@ namespace StoryNavigator.Screens
         //Node properties
         private List<NodeDisplayRuntime> NodeDisplays = new List<NodeDisplayRuntime>();
         NodeDisplayRuntime currentDraggedNode;
+        NodeLinkRuntime currentDraggedLink;
         ButtonRuntime currentDraggedLinkAsButtonRunTime;
 
         //Splines for links between nodes
         private List<Spline> SplinesForNodeLinks = new List<Spline>();
 
-        List<global::RenderingLibrary.Math.Geometry.Line> lines = new List<RenderingLibrary.Math.Geometry.Line>();
+        List<global::RenderingLibrary.Math.Geometry.Line> LinesFromLinkToDestinationNodes = new List<RenderingLibrary.Math.Geometry.Line>();
         #endregion
 
         #region Initialize
@@ -59,8 +61,9 @@ namespace StoryNavigator.Screens
             InitializeTopMenu();
             AttemptLoadLastSavedStoryOrCreateNew();
 
-            //Last step
             CreateNodeDisplayForEachStoryPassage();
+
+            Container.Set(new Finder(NodeDisplays));
         }
         private void InitializeCamera()
         {
@@ -116,6 +119,7 @@ namespace StoryNavigator.Screens
 
             if (!currentStoryData.LoadData(currentDataFileLocation))
             {
+                //New data, create initial node
                 currentStoryData.AddNewPassage();
             }
         }
@@ -131,20 +135,46 @@ namespace StoryNavigator.Screens
 
                 NodeDisplays.Add(newNode);
             }
-            CreateSplinesForAllNodeLinks();
-        }
-
-        private void CreateSplinesForAllNodeLinks()
-        {
-
             foreach (var node in NodeDisplays)
             {
                 foreach (var link in node.NodeLinks)
                 {
-                    //var newSpline = CreateASplineBetweenNodes(link, node);
-                    var newSpline = CreateALineBetweenNodes(link, node);
-                    //SplinesForNodeLinks.Add(newSpline);
-                    lines.Add(newSpline);
+                    if (link.IsSuccessfulLinkToOtherNode && link.LinkedNode == null)
+                    {
+                        NodeDisplayRuntime linkedNode = null;
+                        try
+                        {
+                            
+                            linkedNode = Container.Get<Finder>().GetNodeByPid(link.PassageLink.pid);
+                            if (linkedNode == null) throw new NullReferenceException("Node with valid link can't find other node");
+
+                        } catch (Exception e) {
+#if DEBUG
+                            //Failed to create a link to a node for a link determined valid
+                            //This indicates corruption of the file because every
+#endif
+                        }
+                        link.SetLinkedNode(linkedNode);
+                    }
+                }
+            }
+            CreateLinesForAllLinks();
+        }
+
+        private void CreateLinesForAllLinks()
+        {
+            foreach (var node in NodeDisplays)
+            {
+                foreach (var link in node.NodeLinks)
+                {
+                    if (link.CurrentConnectionStateState != NodeLinkRuntime.ConnectionState.Add)
+                    {
+                        //var newSpline = CreateASplineBetweenNodes(link, node);
+                        var newLine = CreateALineBetweenNodes(link, node);
+                        
+                        //SplinesForNodeLinks.Add(newSpline);
+                        LinesFromLinkToDestinationNodes.Add(newLine);
+                    }
                 }
             }
         }
@@ -204,6 +234,8 @@ namespace StoryNavigator.Screens
                 nodeDestination.NodeSplineEndPosition.Position - linkOrigin.LinkSplineStartPosition.Position;
             line.RelativePoint.X = relativeDifference.X;
             line.RelativePoint.Y = relativeDifference.Y;
+
+            linkOrigin.SetLine(line);
 
             return line;
         }
@@ -287,6 +319,10 @@ namespace StoryNavigator.Screens
                 //NodeDisplayGumRuntime instances does not change their draw order
                 incrementalZ += float.MinValue;
             }
+            else if (cursor.PrimaryButton.IsDown && nodeIsGrabbed)
+            {
+                currentDraggedNode.HandleBeingDragged();
+            }
             else if (!cursor.PrimaryButton.IsDown && nodeIsGrabbed == true)
             {
                 currentDraggedNode?.HandleDraggingStopped();
@@ -303,6 +339,11 @@ namespace StoryNavigator.Screens
             {
                 nodeLinkAsIWindow.X += cursor.ScreenXChange;
                 nodeLinkAsIWindow.Y += cursor.ScreenYChange;
+                var nodeCursorIsOver = Container.Get<Finder>().GetNodeCursorIsCurrentlyOver(cursor);
+                if (nodeCursorIsOver != null)
+                {
+                    //if 
+                }
             }
 
             if (cursor.PrimaryPush && !linkIsGrabbed)
@@ -310,6 +351,7 @@ namespace StoryNavigator.Screens
                 if (cursor.WindowOver is ButtonRuntime newLinkButton 
                 && newLinkButton.Parent is NodeLinkRuntime newLinkDisplay)
                 {
+                    currentDraggedLink = newLinkDisplay;
                     currentDraggedLinkAsButtonRunTime = newLinkButton;
                     currentDraggedLinkAsButtonRunTime.Z = incrementalZ;
 
@@ -324,27 +366,22 @@ namespace StoryNavigator.Screens
 
         private void HandleDraggedLinkIsDropped()
         {
-            var cursor = GuiManager.Cursor;
-            NodeDisplayRuntime nodeLinkIsOver = null;
+            currentDraggedLink.HandleDraggingStopped();
 
-            foreach (var node in NodeDisplays)
+            var cursor = GuiManager.Cursor;
+            var nodeLinkIsOver = Container.Get<Finder>().GetNodeCursorIsCurrentlyOver(cursor);
+
+            if (nodeLinkIsOver != null)
             {
-                if (cursor.IsOnWindowOrFloatingChildren(node as IWindow))
-                    nodeLinkIsOver = node;
+                currentDraggedLink.ParentNode?.HandleLinkEstablishedWithNode(nodeLinkIsOver, currentDraggedLink);
+                var newLine =  CreateALineBetweenNodes(currentDraggedLink, nodeLinkIsOver);
+                LinesFromLinkToDestinationNodes.Add(newLine);
             }
-            if (nodeLinkIsOver != null && currentDraggedLinkAsButtonRunTime.Parent is NodeLinkRuntime linkingNode)
-            {
-                linkingNode.ParentNode?.HandleLinkEstablishedWithNode(nodeLinkIsOver, linkingNode);
-                var newLine =  CreateALineBetweenNodes(linkingNode, nodeLinkIsOver);
-                lines.Add(newLine);
-            }
-            else if (currentDraggedLinkAsButtonRunTime.Parent is NodeLinkRuntime unlinkedNode)
-            {
-                unlinkedNode.HandleDraggingStopped();
-            }
+            
+            currentDraggedLink = null;
             currentDraggedLinkAsButtonRunTime = null;
-            //currentDraggedLink?.HandleDraggingStopped();
         }
+
         #endregion
 
         private void HandleMouseWheelCameraZoomActivity()
@@ -390,7 +427,19 @@ namespace StoryNavigator.Screens
                 }
             }
 
+            var lineCount = LinesFromLinkToDestinationNodes?.Count();
+            if (lineCount > 0)
+            {
+                for (var i = 0; i < lineCount; i++)
+                {
+                    var line = LinesFromLinkToDestinationNodes[i];
+                    RenderingLibrary.SystemManagers.Default.ShapeManager.Remove(line);
+                    LinesFromLinkToDestinationNodes.Remove(line);
+                }
+            }
+
         }
+
         void CustomDestroy()
         {
             DestroyAllNodes();

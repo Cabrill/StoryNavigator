@@ -1,5 +1,7 @@
 using FlatRedBall.Math.Splines;
 using Gum.Wireframe;
+using RenderingLibrary;
+using RenderingLibrary.Math.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,23 +13,37 @@ namespace StoryNavigator.GumRuntimes.Nodes
     public partial class NodeLinkRuntime
     {
         #region Properties
+        public bool IsSuccessfulLinkToOtherNode => CurrentConnectionStateState != ConnectionState.Add && 
+                                PassageLink != null &&
+                                PassageLink.pid != 0 &&
+                                PassageLink.pid != ParentNode.NodePassage.pid;
+
+        public Line LineToDestinationNode { get; private set; }
+
         //Used in detaching from parent display during drag event
         private float XPriorToDrag = 0f;
         private float YPriorToDrag = 0f;
         private float ZPriorToDrag = 0f;
         private NodeDisplayRuntime _parentRunTime;
-
-        public Link PassageLink { get; protected set; }
         public NodeDisplayRuntime ParentNode => _parentRunTime;
+        private NodeDisplayRuntime _linkedNodeRuntime;
+        public NodeDisplayRuntime LinkedNode => _linkedNodeRuntime;
+        public int? LinkedPid => LinkedNode?.Pid;
+        public Link PassageLink { get; protected set; }
+        
         public GraphicalUiElement ParentContainer;
 
         public SplinePoint LinkSplineStartPosition {
             get 
             {
-                //var thisAsGraphicalUiElement = this as GraphicalUiElement;
+                var thisAsIpso = this as IPositionedSizedObject;
                 var splinePoint = new SplinePoint();
-                splinePoint.Position.X = WorldUnitX + Width;
-                splinePoint.Position.Y = WorldUnitY - Height/2;
+                splinePoint.Position.X = WorldUnitX;
+                splinePoint.Position.Y = WorldUnitY + thisAsIpso.Height / 2;
+                if ((this.Parent as GraphicalUiElement).Visible)
+                {
+                    splinePoint.Position.X += thisAsIpso.Width;
+                }
                 return splinePoint;
             }
         
@@ -40,7 +56,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
 
         }
 
-        public void SetPassageLink(Link passageLink)
+        internal void SetPassageLink(Link passageLink)
         {
             PassageLink = passageLink;
 
@@ -49,6 +65,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
             PassageLinkNumberText = passageLink.pid.ToString();
             CurrentConnectionStateState = ConnectionState.DisplayExistingWithEdit;
         }
+
 
         public void UpdatePassageFromDisplay()
         {
@@ -68,7 +85,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
         internal void HandleBeingDragged()
         {
             UnlinkParent();
-            CurrentConnectionStateState = ConnectionState.Dragged;
+            CurrentDragStatusState = DragStatus.Dragged;
             Z = 5;
         }
 
@@ -108,6 +125,16 @@ namespace StoryNavigator.GumRuntimes.Nodes
                 throw new NullReferenceException($"{nameof(_parentRunTime)} is null");
             }
 #endif
+            CurrentDragStatusState = DragStatus.NotDragged;
+            if (IsSuccessfulLinkToOtherNode)
+            {
+                CurrentConnectionStateState = ConnectionState.DisplayExistingWithEdit;
+            }
+            else
+            {
+                CurrentConnectionStateState = ConnectionState.Add;
+            }
+
         }
 
         private void ResetToAbsolutePositionPriorBeginDragging()
@@ -115,6 +142,28 @@ namespace StoryNavigator.GumRuntimes.Nodes
             X = XPriorToDrag;
             Y = YPriorToDrag;
             Z = ZPriorToDrag;
+        }
+
+        internal void SetLine(global::RenderingLibrary.Math.Geometry.Line line)
+        {
+            LineToDestinationNode = line;
+        }
+
+        internal void UpdateLine()
+        {
+            var currentLineOrigination = LinkSplineStartPosition;
+            LineToDestinationNode.X = currentLineOrigination.Position.X;
+            LineToDestinationNode.Y = currentLineOrigination.Position.Y;
+
+            var currentLineDestination = LinkedNode.NodeSplineEndPosition;
+            var relativeDifference = currentLineDestination.Position - currentLineOrigination.Position;
+            LineToDestinationNode.RelativePoint.X = relativeDifference.X;
+            LineToDestinationNode.RelativePoint.Y = relativeDifference.Y;
+        }
+
+        public void SetLinkedNode(NodeDisplayRuntime linkedNode)
+        {
+            _linkedNodeRuntime = linkedNode;
         }
     }
 }
