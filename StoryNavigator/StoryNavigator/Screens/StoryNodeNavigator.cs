@@ -43,7 +43,6 @@ namespace StoryNavigator.Screens
         private List<NodeDisplayRuntime> NodeDisplays = new List<NodeDisplayRuntime>();
         NodeDisplayRuntime currentDraggedNode;
         NodeLinkRuntime currentDraggedLink;
-        ButtonRuntime currentDraggedLinkAsButtonRunTime;
 
         //Splines for links between nodes
         private List<Spline> SplinesForNodeLinks = new List<Spline>();
@@ -335,27 +334,29 @@ namespace StoryNavigator.Screens
         {
             var cursor = GuiManager.Cursor;
 
-            if (linkIsGrabbed && currentDraggedLinkAsButtonRunTime is IWindow nodeLinkAsIWindow)
+            if (linkIsGrabbed && currentDraggedLink is IWindow nodeLinkAsIWindow)
             {
                 nodeLinkAsIWindow.X += cursor.ScreenXChange;
                 nodeLinkAsIWindow.Y += cursor.ScreenYChange;
                 var nodeCursorIsOver = Container.Get<Finder>().GetNodeCursorIsCurrentlyOver(cursor);
                 if (nodeCursorIsOver != null)
                 {
-                    //if 
+                    currentDraggedLink.CurrentDragStatusState = NodeLinkRuntime.DragStatus.DraggedOverValidNode;
+                }
+                else
+                {
+                    currentDraggedLink.CurrentDragStatusState = NodeLinkRuntime.DragStatus.Dragged;
                 }
             }
 
-            if (cursor.PrimaryPush && !linkIsGrabbed)
+            if (cursor.PrimaryDown && !linkIsGrabbed)
             {
-                if (cursor.WindowOver is ButtonRuntime newLinkButton 
-                && newLinkButton.Parent is NodeLinkRuntime newLinkDisplay)
+                if (cursor.WindowOver is ButtonRuntime linkButton 
+                && linkButton.Parent is NodeLinkRuntime linkDisplay)
                 {
-                    currentDraggedLink = newLinkDisplay;
-                    currentDraggedLinkAsButtonRunTime = newLinkButton;
-                    currentDraggedLinkAsButtonRunTime.Z = incrementalZ;
+                    currentDraggedLink = linkDisplay;
 
-                    newLinkDisplay.HandleBeingDragged();
+                    linkDisplay.HandleBeingDragged();
                 }
             }
             else if (!cursor.PrimaryButton.IsDown && linkIsGrabbed)
@@ -373,13 +374,16 @@ namespace StoryNavigator.Screens
 
             if (nodeLinkIsOver != null)
             {
-                currentDraggedLink.ParentNode?.HandleLinkEstablishedWithNode(nodeLinkIsOver, currentDraggedLink);
+                currentDraggedLink.ParentNode?.HandleLinkEstablishedWithNode(nodeLinkIsOver, ref currentDraggedLink);
                 var newLine =  CreateALineBetweenNodes(currentDraggedLink, nodeLinkIsOver);
                 LinesFromLinkToDestinationNodes.Add(newLine);
             }
+            else
+            {
+                currentDraggedLink.ParentNode.HandleFailedNodeLink(currentDraggedLink);
+            }
             
             currentDraggedLink = null;
-            currentDraggedLinkAsButtonRunTime = null;
         }
 
         #endregion

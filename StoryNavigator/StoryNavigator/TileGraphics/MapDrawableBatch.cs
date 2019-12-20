@@ -434,7 +434,7 @@ namespace FlatRedBall.TileGraphics
         }
 
         // Bring the texture coordinates in to adjust for rendering issues on dx9/ogl
-        public static float CoordinateAdjustment = .00002f;
+        public const float CoordinateAdjustment = .00002f;
 
         internal static MapDrawableBatch FromReducedLayer(TMXGlueLib.DataTypes.ReducedLayerInfo reducedLayerInfo, LayeredTileMap owner, TMXGlueLib.DataTypes.ReducedTileMapInfo rtmi, string contentManagerName)
         {

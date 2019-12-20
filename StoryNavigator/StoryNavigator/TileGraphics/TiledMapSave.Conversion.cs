@@ -1236,8 +1236,13 @@ namespace TMXGlueLib
 
             var gidWithoutRotation = gid & 0x0fffffff;
 
-            bool flipHorizontally, flipVertically, flipDiagonally;
-            GetFlipBoolsFromGid(gid, out flipHorizontally, out flipVertically, out flipDiagonally);
+            const uint FlippedHorizontallyFlag = 0x80000000;
+            const uint FlippedVerticallyFlag = 0x40000000;
+            const uint FlippedDiagonallyFlag = 0x20000000;
+
+            bool flipHorizontally = (gid & FlippedHorizontallyFlag) == FlippedHorizontallyFlag;
+            bool flipVertically = (gid & FlippedVerticallyFlag) == FlippedVerticallyFlag;
+            bool flipDiagonally = (gid & FlippedDiagonallyFlag) == FlippedDiagonallyFlag;
 
             // Calculate pixel coordinates in the texture sheet
             leftPixelCoord = CalculateXCoordinate(gidWithoutRotation - tileSet.Firstgid, imageWidth, tileWidth, spacing, margin);
@@ -1261,17 +1266,6 @@ namespace TMXGlueLib
                 bottomPixelCoord = temp;
 
             }
-        }
-
-        public static void GetFlipBoolsFromGid(uint gid, out bool flipHorizontally, out bool flipVertically, out bool flipDiagonally)
-        {
-            const uint FlippedHorizontallyFlag = 0x80000000;
-            const uint FlippedVerticallyFlag = 0x40000000;
-            const uint FlippedDiagonallyFlag = 0x20000000;
-
-            flipHorizontally = (gid & FlippedHorizontallyFlag) == FlippedHorizontallyFlag;
-            flipVertically = (gid & FlippedVerticallyFlag) == FlippedVerticallyFlag;
-            flipDiagonally = (gid & FlippedDiagonallyFlag) == FlippedDiagonallyFlag;
         }
 
         public Tileset GetTilesetForGid(uint gid, bool shouldRemoveFlipFlags = true)

@@ -153,7 +153,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
         }
 
 
-        private void CreateAddNewLinkButton()
+        private NodeLinkRuntime CreateAddNewLinkButton()
         {
             var linkDisplay = new NodeLinkRuntime();
             linkDisplay.CurrentConnectionStateState = NodeLinkRuntime.ConnectionState.Add;
@@ -163,6 +163,10 @@ namespace StoryNavigator.GumRuntimes.Nodes
             NodeLinkContainer.Children.Add(linkDisplay);
 
             NodeLinks.Add(linkDisplay);
+
+            linkDisplay.RecordParent();
+
+            return linkDisplay;
         }
 
         private void LinkDisplay_OpenLinkButtonClick(IWindow window)
@@ -227,22 +231,24 @@ namespace StoryNavigator.GumRuntimes.Nodes
             for (var i = linkCount-1; i >= 0; i--)
             {
                 var nodeLink = NodeLinks[i] as NodeLinkRuntime;
-                NodeLinkContainer.Children.Remove(nodeLink);
-                NodeLinkContainer.RemoveFromManagers();
-                nodeLink.Destroy();
+                InternalLinkDestroy(nodeLink);
             }
         }
+
 
         public void CustomDispose()
         {
             ClearNodeLinks();
         }
 
-        internal void HandleLinkEstablishedWithNode(NodeDisplayRuntime nodeLinkIsOver, NodeLinkRuntime nodeLink)
+        internal void HandleLinkEstablishedWithNode(NodeDisplayRuntime nodeLinkIsOver, ref NodeLinkRuntime nodeLink)
         {
             if (NodePassage != null)
             {
                 nodeLink.HandleDraggingStopped();
+                InternalLinkDestroy(nodeLink);
+
+                nodeLink = CreateAddNewLinkButton();
 
                 var newLink = new DialogTreeRaw.Link();
                 newLink.pid = nodeLinkIsOver.NodePassage.pid;
@@ -259,6 +265,25 @@ namespace StoryNavigator.GumRuntimes.Nodes
                 //Create a new +Link button to this node
                 CreateAddNewLinkButton();
             }
+            else
+            {
+                HandleFailedNodeLink(nodeLink);
+            }
         }
+
+        internal void HandleFailedNodeLink(NodeLinkRuntime nodeLink)
+        {
+            InternalLinkDestroy(nodeLink);
+            CreateAddNewLinkButton();
+        }
+
+        private void InternalLinkDestroy(NodeLinkRuntime nodeLink)
+        {
+            NodeLinks.Remove(nodeLink);
+            NodeLinkContainer.Children.Remove(nodeLink);
+            NodeLinkContainer.RemoveFromManagers();
+            nodeLink.Destroy();
+        }
+        
     }
 }
