@@ -71,6 +71,10 @@ namespace StoryNavigator.Screens
             //Set min/max camera levels and tie camera to 
             //cursor movement on edge of screen
             //and setup middle mouse wheel roll to zoom in/out
+
+            GUILayerGum.LayerCameraSettings = new RenderingLibrary.Graphics.LayerCameraSettings() {
+                IsInScreenSpace = true
+            };
         }
 
         private void InitializeTopMenu()
@@ -283,8 +287,8 @@ namespace StoryNavigator.Screens
                 gumCamera.Y -= cursor.ScreenYChange;
                 //Move the TopMenuBar so it stays at the top of the screen
                 //TODO:  Find a way to attach TopMenuBar or GuiLayer to camera
-                TopMenuBar.X -= cursor.ScreenXChange;
-                TopMenuBar.Y -= cursor.ScreenYChange;
+                //TopMenuBar.X -= cursor.ScreenXChange;
+                //TopMenuBar.Y -= cursor.ScreenYChange;
 
             }
             else

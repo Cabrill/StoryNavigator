@@ -3,33 +3,55 @@
   <RootObject>
     <passages>
       <Passage>
-        <text>I added this to see what would happen</text>
-        <links />
+        <text>Another problem solved.</text>
+        <links>
+          <Link>
+            <name>NewLink</name>
+            <link>[YourLink]</link>
+            <pid>0</pid>
+          </Link>
+          <Link>
+            <name>Link to 2</name>
+            <link>Link text</link>
+            <pid>2</pid>
+          </Link>
+        </links>
         <name>Passage #1 name</name>
         <pid>1</pid>
         <position>
-          <x>125</x>
-          <y>246</y>
+          <x>51</x>
+          <y>348</y>
         </position>
       </Passage>
       <Passage>
-        <text>Multi-line maybe but auto-stretching?  No.</text>
-        <links />
+        <text>Thanks to Vic.</text>
+        <links>
+          <Link>
+            <name>NewLink</name>
+            <link>[YourLink]</link>
+            <pid>0</pid>
+          </Link>
+          <Link>
+            <name>Link to 3</name>
+            <link>Link text</link>
+            <pid>3</pid>
+          </Link>
+        </links>
         <name>Passage #2 name</name>
         <pid>2</pid>
         <position>
-          <x>490</x>
-          <y>113</y>
+          <x>386</x>
+          <y>79</y>
         </position>
       </Passage>
       <Passage>
-        <text>This should be wrapping, but it is not.</text>
+        <text>Much appreciated!</text>
         <links />
         <name>Passage #3 name</name>
         <pid>3</pid>
         <position>
-          <x>109</x>
-          <y>405</y>
+          <x>606</x>
+          <y>303</y>
         </position>
       </Passage>
     </passages>
