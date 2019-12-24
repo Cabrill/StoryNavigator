@@ -1,3 +1,4 @@
+using FlatRedBall.Gui;
 using FlatRedBall.Math.Splines;
 using Gum.Wireframe;
 using RenderingLibrary;
@@ -25,6 +26,7 @@ namespace StoryNavigator.GumRuntimes.Nodes
         private float YPriorToDrag = 0f;
         private float ZPriorToDrag = 0f;
         private NodeDisplayRuntime _parentRunTime;
+        private ContainerRuntime _parentContainer;
         public NodeDisplayRuntime ParentNode => _parentRunTime;
         private NodeDisplayRuntime _linkedNodeRuntime;
         public NodeDisplayRuntime LinkedNode => _linkedNodeRuntime;
@@ -84,47 +86,25 @@ namespace StoryNavigator.GumRuntimes.Nodes
 
         internal void HandleBeingDragged()
         {
-            UnlinkParent();
+            RecordParent();
             CurrentDragStatusState = DragStatus.Dragged;
             Z = 5;
         }
 
-        private void UnlinkParent()
+        public void RecordParent()
         {
-            _parentRunTime = this.Parent.Parent as NodeDisplayRuntime;
-            XPriorToDrag = this.AbsoluteX;
-            YPriorToDrag = this.AbsoluteY;
-            ZPriorToDrag = this.Z;
-            ParentContainer = Parent as GraphicalUiElement;
-            Parent.Children.Remove(this);
-            Parent = null;
-            AddToManagers();
-            ResetToAbsolutePositionPriorBeginDragging();
-        }
-
-        private void ReLinkToFormerParent()
-        {
-            RemoveFromManagers();
-            _parentRunTime.Children.Add(this);
-            ParentContainer.Children.Add(this);
-            Parent = ParentContainer;
-            this.X = 0;
-            this.Y = 0;
-            this.Z = 0;
+            if (Parent != null && Parent is ContainerRuntime nodeLinkContainer)
+            {
+                _parentContainer = nodeLinkContainer;
+                if (Parent?.Parent != null && Parent.Parent is NodeDisplayRuntime nodeDisplay)
+                {
+                    _parentRunTime = nodeDisplay;
+                }
+            }
         }
 
         internal void HandleDraggingStopped()
         {
-            if (_parentRunTime != null)
-            {
-                ReLinkToFormerParent();
-            }
-#if DEBUG
-            else
-            {
-                throw new NullReferenceException($"{nameof(_parentRunTime)} is null");
-            }
-#endif
             CurrentDragStatusState = DragStatus.NotDragged;
             if (IsSuccessfulLinkToOtherNode)
             {

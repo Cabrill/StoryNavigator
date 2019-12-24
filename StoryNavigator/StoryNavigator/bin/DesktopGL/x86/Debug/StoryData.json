@@ -3,8 +3,13 @@
   <RootObject>
     <passages>
       <Passage>
-        <text>Another problem solved.</text>
+        <text>[NPC1] says: I invite you to stay in our town.</text>
         <links>
+          <Link>
+            <name>NewLink</name>
+            <link>[YourLink]</link>
+            <pid>0</pid>
+          </Link>
           <Link>
             <name>NewLink</name>
             <link>[YourLink]</link>
@@ -15,17 +20,6 @@
             <link>Link text</link>
             <pid>2</pid>
           </Link>
-        </links>
-        <name>Passage #1 name</name>
-        <pid>1</pid>
-        <position>
-          <x>51</x>
-          <y>348</y>
-        </position>
-      </Passage>
-      <Passage>
-        <text>Thanks to Vic.</text>
-        <links>
           <Link>
             <name>NewLink</name>
             <link>[YourLink]</link>
@@ -37,21 +31,31 @@
             <pid>3</pid>
           </Link>
         </links>
-        <name>Passage #2 name</name>
-        <pid>2</pid>
+        <name>Passage #1 name</name>
+        <pid>1</pid>
         <position>
-          <x>386</x>
-          <y>79</y>
+          <x>7</x>
+          <y>125</y>
         </position>
       </Passage>
       <Passage>
-        <text>Much appreciated!</text>
+        <text>The blue links &lt; are the response text of PlayerCharacter.</text>
+        <links />
+        <name>Passage #2 name</name>
+        <pid>2</pid>
+        <position>
+          <x>428</x>
+          <y>58</y>
+        </position>
+      </Passage>
+      <Passage>
+        <text>I think the biggest features it needs after that are zoom and search.  </text>
         <links />
         <name>Passage #3 name</name>
         <pid>3</pid>
         <position>
-          <x>606</x>
-          <y>303</y>
+          <x>429</x>
+          <y>348</y>
         </position>
       </Passage>
     </passages>
